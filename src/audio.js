@@ -1,13 +1,14 @@
+const BASE = import.meta.env.BASE_URL;
 const SOUNDS = {
-    'battle-start': ['/assets/SFX/battle_start.wav'],
-    'march':        ['/assets/SFX/enemy_start_move.wav'],
-    'breach':       ['/assets/SFX/breach.wav'],
-    'retreat':      ['/assets/SFX/retreat.wav'],
-    'arrow':        ['/assets/SFX/archer.mp3'],
-    'mage':         ['/assets/SFX/mage.wav'],
-    'spear':        ['/assets/SFX/spear.wav'],
-    'melee':        ['/assets/SFX/orc_on_wall.wav'],
-    'ogre':         ['/assets/SFX/ogre.mp3'],
+    'battle-start': [`${BASE}assets/SFX/battle_start.wav`],
+    'march':        [`${BASE}assets/SFX/enemy_start_move.wav`],
+    'breach':       [`${BASE}assets/SFX/breach.wav`],
+    'retreat':      [`${BASE}assets/SFX/retreat.wav`],
+    'arrow':        [`${BASE}assets/SFX/archer.mp3`],
+    'mage':         [`${BASE}assets/SFX/mage.wav`],
+    'spear':        [`${BASE}assets/SFX/spear.wav`],
+    'melee':        [`${BASE}assets/SFX/orc_on_wall.wav`],
+    'ogre':         [`${BASE}assets/SFX/ogre.mp3`],
 };
 
 const VOLUME = {
