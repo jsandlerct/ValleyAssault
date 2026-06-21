@@ -53,12 +53,59 @@ const hemiLight = new THREE.HemisphereLight(SCENE.HEMI_SKY, SCENE.HEMI_GROUND, S
 scene.add(hemiLight);
 
 // ── Ground ────────────────────────────────────────────────────────────────────
-const groundGeo = new THREE.PlaneGeometry(SCENE.GROUND_W, SCENE.GROUND_D);
-const groundMat = new THREE.MeshStandardMaterial({ color: SCENE.GROUND_COLOR, roughness: 0.9, metalness: 0 });
-const ground = new THREE.Mesh(groundGeo, groundMat);
-ground.rotation.x = -Math.PI / 2;
-ground.receiveShadow = true;
-scene.add(ground);
+function makePixelTexture(palette, repeatX, repeatY) {
+    const size = 16;
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    for (let y = 0; y < size; y++) {
+        for (let x = 0; x < size; x++) {
+            const idx = Math.abs((x * 7 + y * 13) ^ (x * 3 + y * 5)) % palette.length;
+            ctx.fillStyle = palette[idx];
+            ctx.fillRect(x, y, 1, 1);
+        }
+    }
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.magFilter = THREE.NearestFilter;
+    tex.minFilter = THREE.NearestFilter;
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(repeatX, repeatY);
+    return tex;
+}
+
+const grassPalette = [
+    '#5a9e30', '#4e8a28', '#3d7220', '#68aa3c',
+    '#50922e', '#427820', '#62a438', '#3a6a1c',
+    '#5c9c32', '#467228', '#72b040', '#3e6e22',
+    '#488028', '#5e9e34', '#406820', '#6aac3e',
+];
+
+const dirtPalette = [
+    '#7a5230', '#6b4525', '#8a5e38', '#5e3a1c',
+    '#7c5535', '#6e4828', '#845a32', '#60401e',
+    '#785028', '#8c6040', '#644020', '#7e5535',
+    '#6a4a28', '#865e3a', '#5c3c1c', '#7a5030',
+];
+
+// Front (player side): Z from -25 to +35, depth=60, center at Z=+5
+const frontGeo = new THREE.PlaneGeometry(SCENE.GROUND_W, 60);
+const frontMat = new THREE.MeshStandardMaterial({ map: makePixelTexture(grassPalette, 16, 10), roughness: 0.9, metalness: 0 });
+const frontGround = new THREE.Mesh(frontGeo, frontMat);
+frontGround.rotation.x = -Math.PI / 2;
+frontGround.position.z = 5;
+frontGround.receiveShadow = true;
+scene.add(frontGround);
+
+// Back (beyond wall): Z from -35 to -25, depth=10, center at Z=-30
+const backGeo = new THREE.PlaneGeometry(SCENE.GROUND_W, 10);
+const backMat = new THREE.MeshStandardMaterial({ map: makePixelTexture(dirtPalette, 16, 2), roughness: 1.0, metalness: 0 });
+const backGround = new THREE.Mesh(backGeo, backMat);
+backGround.rotation.x = -Math.PI / 2;
+backGround.position.z = -30;
+backGround.receiveShadow = true;
+scene.add(backGround);
 
 // ── Resize handler ────────────────────────────────────────────────────────────
 window.addEventListener('resize', () => {

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Siege of the Valley</title>
+  <title>Valley Assault</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { overflow: hidden; background: #1a1a2e; font-family: 'Segoe UI', Arial, sans-serif; }
@@ -14,8 +14,10 @@
     #hud,
     #flash-overlay,
     #loading-screen,
+    #retreat-screen,
     #victory-screen,
-    #defeat-screen {
+    #defeat-screen,
+    #year-summary {
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
@@ -30,6 +32,137 @@
       opacity: 0;
       transition: opacity 0.08s;
       z-index: 10;
+    }
+
+    /* ── Intro screen ── */
+    #intro-screen {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 150;
+      display: none;
+      background: #0d0d1a;
+    }
+    #intro-content {
+      display: flex;
+      width: 100%;
+      height: 100%;
+    }
+    #intro-image-panel {
+      flex: 0 0 42%;
+      position: relative;
+      overflow: hidden;
+    }
+    #intro-image-panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+    #intro-image-panel::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, transparent 60%, #0d0d1a 100%);
+    }
+    #intro-text-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px 48px 40px 32px;
+      overflow-y: auto;
+    }
+    #intro-speaker {
+      color: #c8a96e;
+      font-size: 0.7rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    #intro-title {
+      color: #ffd700;
+      font-size: 1.5rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      line-height: 1.3;
+    }
+    .intro-para {
+      color: #d4b896;
+      font-size: 0.88rem;
+      letter-spacing: 0.5px;
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+    .intro-para strong {
+      color: #ffd700;
+      letter-spacing: 1px;
+    }
+    .intro-rule {
+      background: rgba(200,169,110,0.08);
+      border-left: 3px solid #c8a96e;
+      border-radius: 0 4px 4px 0;
+      padding: 10px 16px;
+      margin-bottom: 16px;
+      color: #e8d5b0;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+      line-height: 1.7;
+    }
+    .intro-rule strong {
+      color: #ff9966;
+    }
+    #intro-continue-btn {
+      margin-top: 24px;
+      align-self: flex-start;
+      background: rgba(80,40,10,0.9);
+      border: 1px solid rgba(200,150,80,0.6);
+      color: #ffd700;
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    #intro-continue-btn:hover {
+      background: rgba(130,60,10,0.95);
+      border-color: #ffd700;
+    }
+
+    /* ── Title screen ── */
+    #title-screen {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 200;
+      cursor: pointer;
+      background: #000;
+    }
+    #title-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    #title-prompt {
+      position: absolute;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #d4b896;
+      font-size: 1rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      animation: title-blink 1.4s ease-in-out infinite;
+    }
+    @keyframes title-blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.15; }
     }
 
     /* ── Loading screen ── */
@@ -63,16 +196,30 @@
     #hud { pointer-events: none; z-index: 20; }
 
     /* Top row */
-    #timer {
+    #year-display {
       position: absolute;
       top: 14px; left: 16px;
+      color: #ffd700;
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      background: rgba(0,0,0,0.55);
+      padding: 6px 12px;
+      border-radius: 4px 4px 0 0;
+      border: 1px solid rgba(255,215,0,0.4);
+      border-bottom: none;
+    }
+    #timer {
+      position: absolute;
+      top: 46px; left: 16px;
       color: #d4b896;
       font-size: 1rem;
       letter-spacing: 2px;
       background: rgba(0,0,0,0.55);
       padding: 6px 12px;
-      border-radius: 4px;
+      border-radius: 0 0 4px 4px;
       border: 1px solid rgba(212,184,150,0.3);
+      border-top: none;
     }
     #objective-banner {
       position: absolute;
@@ -90,7 +237,7 @@
       max-width: 70vw;
       white-space: normal;
     }
-    #mana-display {
+    #unit-count {
       position: absolute;
       top: 14px; right: 16px;
       color: #8a9abf;
@@ -120,11 +267,17 @@
     #sound-toggle:hover { border-color: rgba(212,184,150,0.7); }
     #sound-toggle.muted { opacity: 0.45; }
 
-    /* Squad panel */
-    #squad-panel {
+    /* Squad panel + order menu share a bottom-left row */
+    #squad-area {
       position: absolute;
       bottom: 16px; left: 16px;
       pointer-events: all;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      gap: 12px;
+    }
+    #squad-panel {
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -173,13 +326,11 @@
 
     /* Order menu */
     #order-menu {
-      position: absolute;
-      bottom: 16px; right: 16px;
       pointer-events: all;
       display: flex;
       flex-direction: column;
       gap: 8px;
-      align-items: flex-end;
+      align-items: flex-start;
     }
     #order-menu.hidden { display: none; }
     #order-menu-title {
@@ -187,7 +338,7 @@
       font-size: 0.7rem;
       letter-spacing: 2px;
       text-transform: uppercase;
-      text-align: right;
+      text-align: left;
     }
     .order-btn {
       background: rgba(10,10,25,0.88);
@@ -214,9 +365,44 @@
       color: #c8a96e;
       font-size: 0.75rem;
       letter-spacing: 2px;
-      text-align: right;
+      text-align: left;
     }
     #order-confirm.hidden { visibility: hidden; }
+
+    /* Retreat button */
+    #retreat-btn {
+      position: absolute;
+      bottom: 16px; right: 16px;
+      pointer-events: all;
+      background: rgba(60,20,10,0.9);
+      border: 1px solid rgba(220,100,60,0.6);
+      color: #e8a080;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    #retreat-btn:hover { background: rgba(100,30,10,0.95); border-color: #e8a080; }
+    #retreat-btn.hidden { display: none; }
+
+    /* Retreat counter */
+    #retreat-counter {
+      position: absolute;
+      bottom: 60px; right: 16px;
+      pointer-events: none;
+      color: #e8a080;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: rgba(0,0,0,0.72);
+      padding: 10px 16px;
+      border-radius: 4px;
+      border: 1px solid rgba(220,100,60,0.4);
+    }
+    #retreat-counter.hidden { display: none; }
 
     /* Breach counter */
     #breach-counter {
@@ -273,8 +459,40 @@
     .section-label.breached .hp-fill-3d { background: #ffd700 !important; }
     .section-label.breached .hp-pct { color: #ffd700; }
 
-    /* Victory / Defeat screens */
-    #victory-screen, #defeat-screen {
+    /* Year summary screen */
+    #year-summary {
+      z-index: 50;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      background: rgba(10,15,30,0.94);
+    }
+    #year-summary h2 { color: #ffd700; font-size: 2.2rem; letter-spacing: 5px; }
+    .summary-section {
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(212,184,150,0.3);
+      border-radius: 6px;
+      padding: 14px 28px;
+      min-width: 380px;
+      max-width: 520px;
+    }
+    .summary-label {
+      color: #8a7a6a;
+      font-size: 0.68rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .summary-value {
+      color: #e8d5b0;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+    }
+
+    /* Victory / Defeat / Retreat screens */
+    #victory-screen, #defeat-screen, #retreat-screen {
       z-index: 50;
       display: none;
       flex-direction: column;
@@ -282,11 +500,54 @@
       justify-content: center;
       gap: 24px;
     }
-    #victory-screen { background: rgba(0,30,0,0.88); }
-    #defeat-screen  { background: rgba(30,0,0,0.88); }
+    #defeat-screen  { background: rgba(30,0,0,0.88); flex-direction: row; gap: 0; }
+    #retreat-screen { background: rgba(20,15,5,0.92); }
+    #defeat-zoob {
+      height: 100%;
+      width: auto;
+      max-width: 44%;
+      object-fit: cover;
+      object-position: top center;
+      flex-shrink: 0;
+      mask-image: linear-gradient(to right, black 60%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, black 60%, transparent 100%);
+    }
+    #defeat-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      padding: 40px;
+    }
+    #victory-screen { background: rgba(0,30,0,0.88); flex-direction: row; gap: 0; }
+    #victory-zoob {
+      height: 100%;
+      width: auto;
+      max-width: 44%;
+      object-fit: cover;
+      object-position: top center;
+      flex-shrink: 0;
+      order: 1;
+      transform: scaleX(-1);
+      mask-image: linear-gradient(to left, black 60%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to left, black 60%, transparent 100%);
+    }
+    #victory-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      padding: 40px;
+      order: 0;
+    }
     #victory-screen h2 { color: #ffd700; font-size: 3rem; letter-spacing: 6px; }
     #defeat-screen h2  { color: #e06040; font-size: 3rem; letter-spacing: 6px; }
-    #victory-screen p, #defeat-screen p { color: #d4b896; letter-spacing: 2px; }
+    #retreat-screen h2 { color: #e8a080; font-size: 3rem; letter-spacing: 6px; }
+    #victory-screen p, #defeat-screen p, #retreat-screen p { color: #d4b896; letter-spacing: 2px; }
     .restart-btn {
       background: rgba(212,184,150,0.15);
       border: 1px solid #d4b896;
@@ -300,6 +561,29 @@
       pointer-events: all;
     }
     .restart-btn:hover { background: rgba(212,184,150,0.3); }
+
+    /* ── Defense announcement banner ── */
+    #announce-banner {
+      position: absolute;
+      top: 60px; left: 50%; transform: translateX(-50%);
+      color: #ffd700;
+      font-size: 1.05rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      background: rgba(0,0,0,0.82);
+      padding: 10px 28px;
+      border-radius: 4px;
+      border: 1px solid rgba(255,215,0,0.55);
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 30;
+      animation: announce-pulse 0.4s ease-out;
+    }
+    #announce-banner.hidden { display: none; }
+    @keyframes announce-pulse {
+      from { opacity: 0; transform: translateX(-50%) scale(0.92); }
+      to   { opacity: 1; transform: translateX(-50%) scale(1); }
+    }
 
     /* ── Setup overlay ── */
     #setup-overlay {
@@ -389,6 +673,13 @@
       opacity: 0.35;
       cursor: not-allowed;
     }
+    #start-battle-btn.ready {
+      animation: smash-glow 1.2s ease-in-out infinite;
+    }
+    @keyframes smash-glow {
+      0%, 100% { box-shadow: 0 0 6px 2px rgba(255, 200, 50, 0.4); border-color: #c8a96e; }
+      50%       { box-shadow: 0 0 18px 6px rgba(255, 200, 50, 0.85); border-color: #ffd700; }
+    }
     #setup-warning {
       display: none;
       margin-top: 10px;
@@ -414,9 +705,66 @@
   </style>
 </head>
 <body>
+  <!-- Title screen -->
+  <div id="title-screen">
+    <img src="/assets/images/Valley_Assault_title_screen.png" alt="Valley Assault" />
+    <div id="title-prompt">Click to Begin</div>
+  </div>
+
+  <!-- Intro screen -->
+  <div id="intro-screen">
+    <div id="intro-content">
+      <div id="intro-image-panel">
+        <img src="/assets/images/Zoob_the_goblin_king.png" alt="Zoob the Goblin King" />
+      </div>
+      <div id="intro-text-panel">
+        <div id="intro-speaker">Zoob the Goblin King speaks...</div>
+        <div id="intro-title">YOU! NEW COMMANDER!<br>ZOOB HAVE WORDS!</div>
+
+        <p class="intro-para">
+          Last year, old commander Grak go to big wall. Grak smash wall <strong>ALMOST TO PIECES.</strong>
+          Zoob watch from far hill. Zoob cry happy tear. Beautiful day. But then
+          defenders smash Grak back. Grak not come home. Zoob wait three whole minutes,
+          then stop waiting. <em style="color:#8a7a6a">*belch*</em>
+        </p>
+
+        <p class="intro-para">
+          YOU are new commander now. Zoob give you <strong>TEN YEARS</strong> to do what Grak not do —
+          breach the big wall and send Zoob army through. Make valley peoples have very
+          very bad day. This Zoob's dream. Do not ruin Zoob's dream.
+        </p>
+
+        <p class="intro-para">
+          Each year you get squads: orcs who smash wall, goblins who shoot defenders
+          off the top, big stinky ogres who smash wall even more. You pick which squad
+          attacks which section. Combat happen by itself. You just the boss. Be good boss.
+        </p>
+
+        <div class="intro-rule">
+          <strong>REWARD:</strong> Destroy wall much? Zoob very impress. Zoob send MORE soldiers
+          next year — maybe extra ogre if you really good. Destroy wall little?
+          Zoob send fewer soldiers and make this face the whole time. &#x1F612;
+        </div>
+
+        <div class="intro-rule">
+          <strong>WARNING:</strong> Lose the WHOLE army — every last goblin dead, none retreat?
+          Then you come explain to Zoob what happen. Zoob then introduce you to
+          the ogres. At dinner. You be the dinner. <strong>DO NOT LOSE WHOLE ARMY.</strong>
+        </div>
+
+        <p class="intro-para">
+          Zoob believe in you. Small amount. Maybe medium amount if you look capable.
+          You look... okay. Probably fine. Hopefully fine.
+        </p>
+
+        <button id="intro-continue-btn">For Zoob! Smash Wall!</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Loading screen -->
   <div id="loading-screen">
-    <h1>Siege of the Valley</h1>
+    <h1>Valley Assault</h1>
     <div id="progress-bar-wrap"><div id="progress-bar"></div></div>
     <p id="loading-status">Loading assets…</p>
   </div>
@@ -426,28 +774,35 @@
 
   <!-- HUD -->
   <div id="hud">
+    <div id="year-display">YEAR 1 / 10</div>
     <div id="timer">00:00</div>
-    <div id="objective-banner">PRIMARY TARGET: The Valley Wall. Select a squad, assign a target section.</div>
-    <div id="mana-display">MANA: —</div>
+    <div id="objective-banner">Pick squad! Pick wall section! Tell them smash! Is not hard!</div>
+    <div id="unit-count">FORCES: —</div>
     <button id="sound-toggle" title="Toggle sound">🔊</button>
 
-    <div id="squad-panel"></div>
+    <div id="squad-area">
+      <div id="squad-panel"></div>
 
-    <div id="order-menu" class="hidden">
-      <div id="order-menu-title">Attack order</div>
-      <button class="order-btn" data-section="A">Attack Section A</button>
-      <button class="order-btn" data-section="B">Attack Section B</button>
-      <button class="order-btn" data-section="C">Attack Section C</button>
-      <span id="order-confirm" class="hidden">Order Issued</span>
+      <div id="order-menu" class="hidden">
+        <div id="order-menu-title">Where smash?</div>
+        <button class="order-btn" data-section="A">Smash Section A</button>
+        <button class="order-btn" data-section="B">Smash Section B</button>
+        <button class="order-btn" data-section="C">Smash Section C</button>
+        <span id="order-confirm" class="hidden">Order Given!</span>
+      </div>
     </div>
 
+    <div id="announce-banner" class="hidden"></div>
     <div id="breach-counter" class="hidden"></div>
+
+    <button id="retreat-btn" class="hidden">Sound Horn! Fall Back!</button>
+    <div id="retreat-counter" class="hidden"></div>
   </div>
 
   <!-- Setup overlay -->
   <div id="setup-overlay">
-    <h2>Deploy Your Forces</h2>
-    <div id="unassigned-counter">Unassigned: <span id="unassigned-num">66</span></div>
+    <h2>Where Send Goblins?</h2>
+    <div id="unassigned-counter">Not yet sent: <span id="unassigned-num">66</span></div>
 
     <div id="auto-squad-targets">
       <div class="target-row">
@@ -477,22 +832,53 @@
     </div>
 
     <div id="setup-actions">
-      <button id="assign-all-btn">Assign All</button>
-      <button id="start-battle-btn" disabled>Start Battle</button>
+      <button id="assign-all-btn">YOU LAZY! ZOOB DO FOR YOU!</button>
+      <button id="start-battle-btn" disabled><strong>SMASH WALL NOW!</strong></button>
     </div>
-    <div id="setup-warning">Ogres cannot join Reserve squads!</div>
+    <div id="setup-warning">Ogres too big for Reserve squad!</div>
+  </div>
+
+  <!-- Year summary (shown between years after retreat) -->
+  <div id="year-summary">
+    <h2>YEAR <span id="summary-year"></span> — ZOOB JUDGE YOU</h2>
+    <div class="summary-section">
+      <div class="summary-label">Who make it back</div>
+      <div class="summary-value" id="summary-survivors"></div>
+    </div>
+    <div class="summary-section">
+      <div class="summary-label">Wall smashing report</div>
+      <div class="summary-value" id="summary-wall"></div>
+    </div>
+    <div class="summary-section">
+      <div class="summary-label">New soldiers from Zoob</div>
+      <div class="summary-value" id="summary-reinforcements"></div>
+    </div>
+    <button id="next-year-btn" class="restart-btn"></button>
+  </div>
+
+  <!-- Retreat outcome -->
+  <div id="retreat-screen">
+    <h2>HORN SOUND!</h2>
+    <p id="retreat-detail"></p>
+    <button class="restart-btn" onclick="location.reload()">Try Again for Zoob!</button>
   </div>
 
   <!-- Victory / Defeat -->
   <div id="victory-screen">
-    <h2>VICTORY</h2>
-    <p>Your forces breach the valley wall.</p>
-    <button class="restart-btn" onclick="location.reload()">Play Again</button>
+    <div id="victory-content">
+      <h2>VICTORY!</h2>
+      <p>Wall is DOWN! Army march through! Zoob do little happy dance! YOU NOT FAIL ZOOB!</p>
+      <button class="restart-btn" onclick="location.reload()">Play Again!</button>
+    </div>
+    <img id="victory-zoob" src="/assets/images/zoob_victory_screen.png" alt="Zoob victorious" />
   </div>
   <div id="defeat-screen">
-    <h2>DEFEAT</h2>
-    <p>Your army has been destroyed.</p>
-    <button class="restart-btn" onclick="location.reload()">Try Again</button>
+    <img id="defeat-zoob" src="/assets/images/Zoob_the_goblin_king.png" alt="Zoob the Goblin King" />
+    <div id="defeat-content">
+      <h2>ZOOB VERY SAD</h2>
+      <p>Army all dead. Zoob very sad. Also very hungry.</p>
+      <button class="restart-btn" onclick="location.reload()">Beg Zoob for Second Chance</button>
+    </div>
   </div>
 
   <script type="module" src="/src/main.js"></script>

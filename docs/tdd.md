@@ -3,7 +3,7 @@
 **Author:** Jeff  
 **Based on:** PRD v0.1 (June 19, 2026)  
 **Status:** Living document — updated after each enhancement  
-**Last updated:** June 20, 2026 (squad assembly screen added)
+**Last updated:** June 21, 2026 (code review refactor + test suite added)
 
 ---
 
@@ -26,6 +26,7 @@
 15. [Rendering & Performance](#15-rendering--performance)
 16. [Known Risks & Mitigations](#16-known-risks--mitigations)
 17. [Squad Assembly Screen](#17-squad-assembly-screen-added-june-20-2026)
+18. [Code Review Refactor & Test Suite](#18-code-review-refactor--test-suite-june-21-2026)
 
 ---
 
@@ -752,11 +753,59 @@ On Start Battle: 1.2-second lerp back to `CONFIG.CAMERA_POS = {x:0, y:30, z:28}`
 
 ---
 
+## 18. Code Review Refactor & Test Suite (June 21, 2026)
+
+### Code Review Findings
+
+A senior-level co-review identified 8 issues (correctness, cleanup, altitude, conventions):
+
+| Finding | File | Fix applied |
+|---|---|---|
+| `section.breach` monkeypatched in main.js — defenders removed *after* squads started marching through | wall.js / main.js | Added `WallSection.onBreach` callback; called before `game.checkBreach()` |
+| `ZONE_META` duplicated `label`/`isAuto`/`isReserve` from `SETUP.ZONES` | main.js | Deleted `ZONE_META`; `buildSquadsFromSetup` reads directly from `SETUP.ZONES` |
+| Redundant second `setAllSquads` pass with misleading comment | main.js | Removed second pass; array is already a live reference |
+| `loadAll` duplicated progress update in `.catch()`, left status stale on failure | main.js | Moved to `.catch()`+`.finally()` with failure flag |
+| Dead `[data-squad-id]` selector arm — cards use `data-id` only | ui.js | Removed dead arm |
+| `_warnTimer` was public in a `#field`-private class | setup.js | Converted to `#warnTimer` |
+| `makeRubble` created new `MeshStandardMaterial` per breach (up to 3 GPU leaks) | wall.js | Hoisted to module-level `rubbleMat` |
+| `flashHit` setTimeout could reset emissive on recycled unit within 200ms | squad.js | Documented; low-risk in practice (kill→despawn path has 1500ms linger) |
+
+### Test Suite Added
+
+**Framework:** Vitest (native Vite integration) + jsdom  
+**Command:** `npm test`  
+**Config:** `vite.config.js` → `test.environment = 'jsdom'`, `test.globals = true`
+
+**Canvas stub:** `src/__tests__/setup.js` patches `document.createElement('canvas')` to return a minimal 2D context for jsdom, so `wall.js` module-level code (`makeStoneTexture`) runs without errors.
+
+**Why Vitest:** Zero config with Vite; native ES module support; no Babel transform needed; fast watch mode with `npm run test:watch`.
+
+**What's tested vs not:**
+
+| Tested | Rationale |
+|---|---|
+| `game.js` state machine | Pure JS, no Three.js imports — 100% testable |
+| `combat.js` damage accumulation | Only needs mocked `audio` + `game` singletons |
+| `wall.js` WallSection class | Three.js + DOM mocked via `vi.mock('three')` + jsdom canvas stub |
+| `constants.js` schema | Pure data — validates cross-module contracts |
+
+| Not tested | Rationale |
+|---|---|
+| `squad.js` march/steer logic | Heavy Three.js dependency (Vector3 math, mixers); covered by `game.test.js` state integration |
+| `setup.js` drag-and-drop | Requires full DOM + raycast simulation |
+| `main.js` init | Integration/E2E territory; Playwright exists for this |
+| Audio/renderer/loader | No observable business logic to assert |
+
+**Test count at time of writing:** 42 tests across 4 files, all green.
+
+---
+
 ## 16. Known Risks & Mitigations
 
 | Risk | Status | Notes |
 |---|---|---|
 | `SkeletonUtils.clone()` required for skinned models | Mitigated | `ModelCache.clone()` encapsulates this |
+| GLTFLoader strips dots from bone/node names | Documented | `GLTFLoader` runs every node name through `THREE.PropertyBinding.sanitizeNodeName()`, which removes `.[]:/ ` chars. Blender bones like `Fist.R` / `Foot.L` become `FistR` / `FootL` in the scene graph. **Exact-match lookups by the original name (`obj.name === 'Fist.R'`) silently fail** — `traverse` finds nothing, the variable stays null, and any code gated on it never runs. Always match the sanitized name (normalize with `name.toLowerCase().replace(/[^a-z]/g,'')`) when locating a bone to attach equipment. First hit: the knight demo's hand-mounted sword (see `src/knight-demo.js`). |
 | `Box3.setFromObject()` floating on animated models | Mitigated | `normalizeModel()` uses mesh-only bounds |
 | Sound inaudible in browser | Fixed (June 20) | Rewritten to Web Audio API: fetch → decodeAudioData → BufferSource; handles suspended context |
 | Units occupy same space when multiple squads at same section | Fixed (June 20) | Push-apart separation force in march loop; SEP_RADIUS=0.85, SEP_STRENGTH=3.0 |

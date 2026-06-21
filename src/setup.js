@@ -3,6 +3,7 @@ import { CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
 import { SETUP, TOTAL_UNITS } from './constants.js';
 import { mixers } from './scene.js';
 
+
 const ZONE_IDS     = ['autoL', 'autoC', 'autoR', 'resL', 'resC', 'resR', 'pool'];
 const AUTO_IDS     = ['autoL', 'autoC', 'autoR'];
 const RESERVE_IDS  = ['resL', 'resC', 'resR'];
@@ -46,19 +47,24 @@ export class SetupScreen {
     #onMouseDown;
     #onMouseMove;
     #onMouseUp;
+    #onAssignAll;
+    #onStartBattle;
 
     // DOM
     #overlay;
     #unassignedNum;
     #startBtn;
     #warning;
+    #warnTimer  = null;
+    #unitCounts;
 
-    constructor(scene, camera, controls, renderer, pools) {
-        this.#scene    = scene;
-        this.#camera   = camera;
-        this.#controls = controls;
-        this.#renderer = renderer;
-        this.#pools    = pools;
+    constructor(scene, camera, controls, renderer, pools, unitCounts = TOTAL_UNITS) {
+        this.#scene      = scene;
+        this.#camera     = camera;
+        this.#controls   = controls;
+        this.#renderer   = renderer;
+        this.#pools      = pools;
+        this.#unitCounts = unitCounts;
 
         // Initialize zone sets
         for (const id of ZONE_IDS) this.#zones.set(id, new Set());
@@ -121,7 +127,7 @@ export class SetupScreen {
 
         // Build a flat list ordered by type then index
         const toSpawn = [];
-        for (const [unitType, count] of Object.entries(TOTAL_UNITS)) {
+        for (const [unitType, count] of Object.entries(this.#unitCounts)) {
             for (let i = 0; i < count; i++) toSpawn.push(unitType);
         }
 
@@ -157,23 +163,24 @@ export class SetupScreen {
         this.#overlay.style.display = 'block';
         this.#updateCounter();
 
-        document.getElementById('assign-all-btn')
-            .addEventListener('click', () => this.#assignAll());
-        this.#startBtn
-            .addEventListener('click', () => this.#startBattle());
+        this.#onAssignAll  = () => this.#assignAll();
+        this.#onStartBattle = () => this.#startBattle();
+        document.getElementById('assign-all-btn').addEventListener('click', this.#onAssignAll);
+        this.#startBtn.addEventListener('click', this.#onStartBattle);
     }
 
     #updateCounter() {
         const n = this.#zones.get('pool').size;
         this.#unassignedNum.textContent = n;
         this.#startBtn.disabled = n > 0;
+        this.#startBtn.classList.toggle('ready', n === 0);
     }
 
     #showWarning(msg) {
         this.#warning.textContent = msg;
         this.#warning.style.display = 'block';
-        clearTimeout(this._warnTimer);
-        this._warnTimer = setTimeout(() => {
+        clearTimeout(this.#warnTimer);
+        this.#warnTimer = setTimeout(() => {
             this.#warning.style.display = 'none';
         }, 2200);
     }
@@ -405,6 +412,10 @@ export class SetupScreen {
 
     destroy() {
         this.#removeEvents();
+
+        // Remove DOM button listeners so they don't accumulate across years
+        document.getElementById('assign-all-btn')?.removeEventListener('click', this.#onAssignAll);
+        this.#startBtn?.removeEventListener('click', this.#onStartBattle);
 
         // Remove pads and labels from scene
         for (const pad of this.#pads.values()) {

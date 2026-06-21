@@ -2,7 +2,8 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { scene, camera, renderer, css2dRenderer, mixers } from './scene.js';
 import { ModelCache, normalizeModel } from './loader.js';
-import { CONFIG, PATHS, UNIT_HEIGHTS, PROJECTILES, DEFENDERS, TOTAL_UNITS, SETUP } from './constants.js';
+import { CONFIG, PATHS, UNIT_HEIGHTS, PROJECTILES, DEFENDERS, TOTAL_UNITS, POOL_SIZES, SETUP } from './constants.js';
+import { Campaign } from './campaign.js';
 import { audio } from './audio.js';
 import { game, State } from './game.js';
 import { Squad, UnitPool } from './squad.js';
@@ -12,6 +13,8 @@ import { UISystem } from './ui.js';
 import { updateLabel } from './ui-3d.js';
 import { WallDefenders } from './defenders.js';
 import { SetupScreen } from './setup.js';
+import { KnightSystem } from './knight-defender.js';
+import { DefenseReinforcementSystem } from './defense-reinforcements.js';
 
 // ── Asset loading ─────────────────────────────────────────────────────────────
 const ALL_PATHS = Object.values(PATHS);
@@ -24,19 +27,21 @@ async function loadAll(cache) {
     let loaded = 0;
     const total = ALL_PATHS.length;
 
-    const promises = ALL_PATHS.map(path =>
-        cache.load(path)
-            .then(() => {
-                loaded++;
-                progressBar.style.width = (loaded / total * 100) + '%';
-                loadingStatus.textContent = `Loading assets… (${loaded}/${total})`;
-            })
+    const promises = ALL_PATHS.map(path => {
+        let failed = false;
+        return cache.load(path)
             .catch(err => {
                 console.warn(`Failed to load ${path}:`, err);
+                failed = true;
+            })
+            .finally(() => {
                 loaded++;
                 progressBar.style.width = (loaded / total * 100) + '%';
-            })
-    );
+                loadingStatus.textContent = failed
+                    ? `Warning: could not load ${path.split('/').pop()}`
+                    : `Loading assets… (${loaded}/${total})`;
+            });
+    });
 
     await Promise.all(promises);
 }
@@ -245,31 +250,22 @@ function tickProjectiles(dt, wallSections, defenders) {
 }
 
 // ── Build squads from setup screen results ────────────────────────────────────
-const ZONE_META = {
-    autoL: { label: 'Left',           isAuto: true,  isReserve: false },
-    autoC: { label: 'Center',         isAuto: true,  isReserve: false },
-    autoR: { label: 'Right',          isAuto: true,  isReserve: false },
-    resL:  { label: 'Reserve Left',   isAuto: false, isReserve: true  },
-    resC:  { label: 'Reserve Center', isAuto: false, isReserve: true  },
-    resR:  { label: 'Reserve Right',  isAuto: false, isReserve: true  },
-};
+const BATTLE_ZONE_IDS = ['autoL', 'autoC', 'autoR', 'resL', 'resC', 'resR'];
 
 function buildSquadsFromSetup(zoneUnits, wallSections, obstacles) {
     const squads = [];
-    for (const [id, meta] of Object.entries(ZONE_META)) {
-        const units   = zoneUnits[id] ?? [];
+    for (const id of BATTLE_ZONE_IDS) {
         const zoneDef = SETUP.ZONES[id];
+        const units   = zoneUnits[id] ?? [];
         const staging = new THREE.Vector3(zoneDef.x, 0, zoneDef.z);
-        const squad   = Squad.fromUnits(id, meta.label, units, staging);
-        squad.isAuto    = meta.isAuto;
-        squad.isReserve = meta.isReserve;
+        const squad   = Squad.fromUnits(id, zoneDef.label, units, staging);
+        squad.isAuto    = zoneDef.isAuto;
+        squad.isReserve = zoneDef.isReserve;
         squad.setWallSections(wallSections);
         squad.setAllSquads(squads);
         squad.setObstacles(obstacles);
         squads.push(squad);
     }
-    // Second pass: each squad's allSquads should point to full array
-    for (const squad of squads) squad.setAllSquads(squads);
     return squads;
 }
 
@@ -283,6 +279,18 @@ async function init() {
 
     loadingScreen.style.display = 'none';
 
+    await new Promise(resolve => {
+        const intro = document.getElementById('intro-screen');
+        intro.style.display = 'flex';
+        document.getElementById('intro-continue-btn').addEventListener('click', () => {
+            intro.style.display = 'none';
+            resolve();
+        }, { once: true });
+    });
+
+    const knightSystem    = new KnightSystem(cache);
+    game.knightSystem     = knightSystem;
+
     const obstacles = addDressing(cache);
 
     // ── Wall sections ──
@@ -293,7 +301,7 @@ async function init() {
     ];
     buildWall(cache, wallSections);
 
-    // ── Unit pools — sized by TOTAL_UNITS ──
+    // ── Unit pools — sized by POOL_SIZES (large enough for any campaign year) ──
     const UNIT_DEFS = {
         orc:    { path: PATHS.ORC,    height: UNIT_HEIGHTS.orc    },
         goblin: { path: PATHS.GOBLIN, height: UNIT_HEIGHTS.goblin },
@@ -301,7 +309,7 @@ async function init() {
     };
 
     const pools = {};
-    for (const [unitType, count] of Object.entries(TOTAL_UNITS)) {
+    for (const [unitType, count] of Object.entries(POOL_SIZES)) {
         const { path, height } = UNIT_DEFS[unitType];
         pools[unitType] = new UnitPool(cache, path, count, scene, height);
     }
@@ -312,15 +320,17 @@ async function init() {
     );
 
     for (let i = 0; i < wallSections.length; i++) {
-        const section  = wallSections[i];
         const defGroup = defenders[i];
-        const origBreachFn = section.breach.bind(section);
-        section.breach = () => {
-            origBreachFn();
+        wallSections[i].onBreach = () => {
             defGroup.remove();
             audio.play('breach');
         };
     }
+
+    // ── Defense reinforcements ──
+    const defenseReinforcements = new DefenseReinforcementSystem(defenders, knightSystem);
+    defenseReinforcements.onAnnounce = (text) => game.ui?.announce(text);
+    game.defenseReinforcements = defenseReinforcements;
 
     // ── Camera controls ──
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -333,29 +343,162 @@ async function init() {
     controls.enablePan     = true;
     controls.update();
 
+    // ── Campaign ──
+    const campaign = new Campaign();
+
     // ── State ──
     game.wallSections = wallSections;
-    game.state        = State.SETUP;
+
+    // combat and active setup screen are replaced each year
+    let combat        = null;
+    let setupScreen   = null;
+
+    // ── Year transition helper ──────────────────────────────────────────────────
+    function startYear(unitCounts) {
+        // Tear down previous year's UI listeners
+        game.ui?.destroy();
+        document.getElementById('retreat-counter')?.classList.add('hidden');
+        document.getElementById('breach-counter')?.classList.add('hidden');
+
+        // Reset game state
+        game.state              = State.SETUP;
+        game.squads             = [];
+        game.ui                 = null;
+        game.unitsThroughBreach = 0;
+        game.retreatedUnits     = 0;
+        game.retreatedByType    = { orc: 0, goblin: 0, ogre: 0 };
+        game.breachBlocked      = false;
+        game.onRetreatComplete  = null;
+        combat                  = null;
+
+        // Reset subsystems
+        knightSystem.reset();
+        defenseReinforcements.reset();
+
+        // Repair walls (on year 1 walls are already full HP — no-op)
+        const repairs = campaign.computeWallRepairs(wallSections);
+        for (const { id, newHp } of repairs) {
+            const section = wallSections.find(s => s.id === id);
+            section.reset(newHp);
+        }
+        // Force label refresh so repaired HP shows during setup
+        for (const section of wallSections) {
+            updateLabel(section);
+            section.labelDirty = false;
+        }
+
+        // Rebuild defenders
+        for (const defGroup of defenders) defGroup.rebuildForNewYear();
+
+        // Update year display
+        document.getElementById('year-display').textContent =
+            `YEAR ${campaign.year} / ${campaign.maxYears}`;
+
+        document.getElementById('objective-banner').textContent =
+            'Pick squads! Drag goblins to squads! Then click SMASH WALL NOW!';
+
+        // Create setup screen for this year
+        setupScreen = new SetupScreen(scene, camera, controls, renderer, pools, unitCounts);
+
+        setupScreen.onConfirm = (zoneUnits, autoTargets) => {
+            setupScreen.destroy();
+            setupScreen = null;
+
+            const squads = buildSquadsFromSetup(zoneUnits, wallSections, obstacles);
+            combat = new CombatSystem(wallSections, squads, defenders);
+            const ui = new UISystem(squads.filter(s => !s.isAuto));
+            ui.setYear(campaign.year, campaign.maxYears);
+
+            game.squads = squads;
+            game.ui     = ui;
+
+            // Wire retreat completion for campaign flow
+            game.onRetreatComplete = (retreatedCount, retreatedByType) => {
+                const wallHpBefore = wallSections.map(s => ({ id: s.id, hp: s.hp, maxHp: s.maxHp }));
+                const nextUnits    = campaign.computeReinforcements(retreatedByType, wallSections);
+
+                if (campaign.year >= campaign.maxYears) {
+                    // Year 10 retreat — campaign lost
+                    ui.showCampaignDefeatScreen('Ten years gone. Wall still stand. Zoob go cry in corner. Also you fired.');
+                    return;
+                }
+
+                // Show year summary; "Begin Year N" transitions to next year
+                const nextYear = campaign.year + 1;
+                ui.showYearSummary({
+                    year:           campaign.year,
+                    retreatedByType,
+                    wallHpBefore,
+                    reinforcements: nextUnits,
+                    nextYear,
+                });
+
+                document.getElementById('next-year-btn').onclick = () => {
+                    ui.hideYearSummary();
+                    campaign.advance(nextUnits);
+                    startYear(campaign.startingUnits);
+                };
+            };
+
+            // Animate camera back to battle position
+            cameraAnim = {
+                fromPos:    camera.position.clone(),
+                fromTarget: controls.target.clone(),
+                toPos:      new THREE.Vector3(CONFIG.CAMERA_POS.x, CONFIG.CAMERA_POS.y, CONFIG.CAMERA_POS.z),
+                toTarget:   new THREE.Vector3(CONFIG.CAMERA_TARGET.x, CONFIG.CAMERA_TARGET.y, CONFIG.CAMERA_TARGET.z),
+                t: 0, dur: 1.2,
+            };
+
+            game.startBattle(autoTargets);
+        };
+    }
+
+    // ── Start Year 1 ──
+    // Walls are already at full HP from construction — skip repair on first year
+    game.state = State.SETUP;
+    document.getElementById('year-display').textContent =
+        `YEAR ${campaign.year} / ${campaign.maxYears}`;
     document.getElementById('objective-banner').textContent =
-        'Deploy your forces — drag units into squads, then click Start Battle.';
-
-    // ── Setup screen ──
-    const setupScreen = new SetupScreen(scene, camera, controls, renderer, pools);
-
-    // combat and ui are created after setup completes
-    let combat = null;
+        'Pick squads! Drag goblins to squads! Then click SMASH WALL NOW!';
+    setupScreen = new SetupScreen(scene, camera, controls, renderer, pools, campaign.startingUnits);
 
     setupScreen.onConfirm = (zoneUnits, autoTargets) => {
         setupScreen.destroy();
+        setupScreen = null;
 
         const squads = buildSquadsFromSetup(zoneUnits, wallSections, obstacles);
         combat = new CombatSystem(wallSections, squads, defenders);
         const ui = new UISystem(squads.filter(s => !s.isAuto));
+        ui.setYear(campaign.year, campaign.maxYears);
 
         game.squads = squads;
         game.ui     = ui;
 
-        // Animate camera back to battle position
+        game.onRetreatComplete = (retreatedCount, retreatedByType) => {
+            const wallHpBefore = wallSections.map(s => ({ id: s.id, hp: s.hp, maxHp: s.maxHp }));
+            const nextUnits    = campaign.computeReinforcements(retreatedByType, wallSections);
+
+            if (campaign.year >= campaign.maxYears) {
+                ui.showCampaignDefeatScreen('Ten years gone. Wall still stand. Zoob go cry in corner. Also you fired.');
+                return;
+            }
+
+            const nextYear = campaign.year + 1;
+            ui.showYearSummary({
+                year:           campaign.year,
+                retreatedByType,
+                wallHpBefore,
+                reinforcements: nextUnits,
+                nextYear,
+            });
+
+            document.getElementById('next-year-btn').onclick = () => {
+                ui.hideYearSummary();
+                campaign.advance(nextUnits);
+                startYear(campaign.startingUnits);
+            };
+        };
+
         cameraAnim = {
             fromPos:    camera.position.clone(),
             fromTarget: controls.target.clone(),
@@ -374,10 +517,10 @@ async function init() {
         const dt = Math.min(timer.getDelta(), 0.1);
 
         if (game.state === State.SETUP) {
-            setupScreen.update(dt);
+            setupScreen?.update(dt);
         }
 
-        if (game.state === State.PLAYING || game.state === State.BREACH) {
+        if (game.state === State.PLAYING || game.state === State.BREACH || game.state === State.RETREAT) {
             for (const squad of game.squads) squad.update(dt);
             combat?.tick(dt);
             for (const section of wallSections) {
@@ -388,6 +531,15 @@ async function init() {
             }
             game.ui?.update(dt);
             tickProjectiles(dt, wallSections, defenders);
+            knightSystem.update(dt);
+
+            // Start defense timer the first time any player unit engages a wall section
+            if (game.state === State.PLAYING && !defenseReinforcements.active) {
+                if (wallSections.some(s => s.engagedSquads.length > 0)) {
+                    defenseReinforcements.start();
+                }
+            }
+            defenseReinforcements.update(dt);
         }
 
         // Camera transition animation
@@ -405,6 +557,7 @@ async function init() {
         }
 
         updateProjectiles(dt);
+        for (const d of defenders) d.update();
         controls.update();
         for (const m of mixers) m.update(dt);
         renderer.render(scene, camera);
@@ -412,7 +565,10 @@ async function init() {
     });
 }
 
-init().catch(err => {
-    console.error('Init failed:', err);
-    document.getElementById('loading-status').textContent = 'Failed to load. Check console.';
-});
+document.getElementById('title-screen').addEventListener('click', () => {
+    document.getElementById('title-screen').style.display = 'none';
+    init().catch(err => {
+        console.error('Init failed:', err);
+        document.getElementById('loading-status').textContent = 'Failed to load. Check console.';
+    });
+}, { once: true });

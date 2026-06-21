@@ -218,7 +218,7 @@ export class Squad {
     setAllSquads(squads) { this.#allSquads    = squads; }
     setObstacles(obs)    { this.#obstacles    = obs; }
 
-    setOrder(section) {
+    setOrder(section, immediate = false) {
         this.#leaveCurrentSection();
         this.targetSection = section;
         this.order = 'marching';
@@ -230,11 +230,24 @@ export class Squad {
             const dx = wallX - unit.model.position.x;
             const dz = CONFIG.WALL_Z - unit.model.position.z;
             if (dx * dx + dz * dz > 0.001) unit.model.rotation.y = Math.atan2(dx, dz);
-            unit.marchDelay = unit.unitType === 'ogre'   ? 0
+            unit.marchDelay = immediate ? 0
+                            : unit.unitType === 'ogre'   ? 0
                             : unit.unitType === 'goblin' ? CONFIG.MARCH_HEADSTART_S * 2
                             : CONFIG.MARCH_HEADSTART_S;
             if (unit.marchDelay === 0) unit.pool.playWalk(unit);
             else                       unit.pool.playIdle(unit);
+        }
+    }
+
+    startRetreat() {
+        this.#leaveCurrentSection();
+        this.order = 'retreating';
+        for (const unit of this.units) {
+            if (!unit.alive) continue;
+            unit.attacking      = false;
+            unit.defenderTarget = null;
+            unit.marchDelay     = 0;
+            unit.pool.playWalk(unit);
         }
     }
 
@@ -261,6 +274,11 @@ export class Squad {
     update(dt) {
         if (this.order === 'through') {
             this.#updateThrough(dt);
+            return;
+        }
+
+        if (this.order === 'retreating') {
+            this.#updateRetreat(dt);
             return;
         }
 
@@ -303,7 +321,8 @@ export class Squad {
                 const speed = CONFIG.UNITS[unit.unitType].speed;
                 this.#_dir.normalize().multiplyScalar(speed * dt);
 
-                // Separation: push away from nearby units across all squads
+                // Separation: push away from nearby units across all squads.
+                // Stationary (attacking) units repel harder so melee units flow around them.
                 let steerX = 0, steerZ = 0;
                 for (const squad of this.#allSquads) {
                     for (const other of squad.units) {
@@ -311,11 +330,13 @@ export class Squad {
                         const ox = unit.model.position.x - other.model.position.x;
                         const oz = unit.model.position.z - other.model.position.z;
                         const d2 = ox * ox + oz * oz;
-                        if (d2 < SEP_RADIUS * SEP_RADIUS && d2 > 0.0001) {
+                        const radius   = other.attacking ? SEP_RADIUS * 1.5 : SEP_RADIUS;
+                        const strength = other.attacking ? OBS_STRENGTH     : SEP_STRENGTH;
+                        if (d2 < radius * radius && d2 > 0.0001) {
                             const d  = Math.sqrt(d2);
-                            const f  = (SEP_RADIUS - d) / SEP_RADIUS * dt;
-                            steerX += (ox / d) * f * SEP_STRENGTH;
-                            steerZ += (oz / d) * f * SEP_STRENGTH;
+                            const f  = (radius - d) / radius * dt;
+                            steerX += (ox / d) * f * strength;
+                            steerZ += (oz / d) * f * strength;
                         }
                     }
                 }
@@ -363,6 +384,7 @@ export class Squad {
     }
 
     #updateThrough(dt) {
+        if (game.breachBlocked) return;  // KnightSystem handles movement during sortie fight
         // Funnel through the breach opening (cap X spread to ±4 units around breach center)
         const targetZ = CONFIG.WALL_Z - 12;
         for (const unit of [...this.units]) {
@@ -375,10 +397,13 @@ export class Squad {
             this.#_dir.y = 0;
             const dist = this.#_dir.length();
 
-            // Count unit 0.5s after it crosses the wall plane
-            if (!unit.throughRecorded && unit.model.position.z < CONFIG.WALL_Z) {
-                unit.throughRecorded = true;
-                setTimeout(() => game.recordUnitThrough(), 500);
+            // Count unit when it passes the far edge of the brown ground AND all knights are dead
+            if (!unit.throughRecorded && unit.model.position.z < CONFIG.BREACH_THROUGH_Z) {
+                const knightsCleared = !game.knightSystem || game.knightSystem.allKnightsDead;
+                if (knightsCleared) {
+                    unit.throughRecorded = true;
+                    game.recordUnitThrough();
+                }
             }
 
             if (dist < 0.5) {
@@ -395,6 +420,25 @@ export class Squad {
                 unit.model.position.add(this.#_dir);
                 unit.model.rotation.y = Math.atan2(this.#_dir.x, this.#_dir.z);
             }
+        }
+    }
+
+    #updateRetreat(dt) {
+        for (const unit of [...this.units]) {
+            if (!unit.alive) continue;
+
+            if (unit.model.position.z >= CONFIG.RETREAT_Z) {
+                unit.pool.despawn(unit);
+                const idx = this.units.indexOf(unit);
+                if (idx !== -1) this.units.splice(idx, 1);
+                game.recordRetreated(unit);
+                if (this.units.length === 0) this.order = 'idle';
+                continue;
+            }
+
+            const speed = CONFIG.UNITS[unit.unitType].speed * 1.1;
+            unit.model.position.z += speed * dt;
+            unit.model.rotation.y = 0; // face away from wall (+Z)
         }
     }
 
@@ -429,6 +473,7 @@ export class Squad {
             if (this.units.length === 0) {
                 this.order = 'idle';
                 game.checkDefeat();
+                game.checkRetreatComplete();
             }
         }, UNIT_FX.DEATH_LINGER_MS);
     }

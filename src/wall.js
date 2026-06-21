@@ -85,13 +85,15 @@ function scaledWidth(cache, path, scaleX = WALL.SX) {
     return box.getSize(new THREE.Vector3()).x * scaleX || 2.0;
 }
 
+const rubbleMat = new THREE.MeshStandardMaterial({ color: 0x7A7060, roughness: 0.95, metalness: 0 });
+
 function makeRubble(group) {
-    const mat = new THREE.MeshStandardMaterial({ color: 0x7A7060, roughness: 0.95, metalness: 0 });
+    const meshes = [];
     for (let i = 0; i < 22; i++) {
         const w = 0.25 + Math.random() * 0.7;
         const h = 0.15 + Math.random() * 0.5;
         const d = 0.2  + Math.random() * 0.6;
-        const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
+        const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), rubbleMat);
         mesh.position.set(
             (Math.random() - 0.5) * 7,
             h / 2 + Math.random() * 0.2,
@@ -104,7 +106,9 @@ function makeRubble(group) {
         );
         mesh.castShadow = true;
         group.add(mesh);
+        meshes.push(mesh);
     }
+    return meshes;
 }
 
 export class WallSection {
@@ -117,6 +121,8 @@ export class WallSection {
     group         = null;
     closedGate    = null;
     openGate      = null;
+    onBreach      = null;   // optional callback injected by main.js
+    #rubbleMeshes = [];
 
     get hp()  { return this.#hp; }
     set hp(v) { this.#hp = v; this.labelDirty = true; }
@@ -135,7 +141,7 @@ export class WallSection {
         if (this.closedGate) this.closedGate.visible = false;
         if (this.openGate)   this.openGate.visible   = false;
 
-        makeRubble(this.group);
+        this.#rubbleMeshes = makeRubble(this.group);
 
         if (this.label) this.label.element.classList.add('breached');
 
@@ -143,7 +149,23 @@ export class WallSection {
             if (squad.order === 'engaged') squad.order = 'idle';
         }
 
+        this.onBreach?.();
         game.checkBreach();
+    }
+
+    reset(newHp) {
+        for (const mesh of this.#rubbleMeshes) this.group.remove(mesh);
+        this.#rubbleMeshes = [];
+
+        if (this.closedGate) this.closedGate.visible = true;
+        if (this.openGate)   this.openGate.visible   = false;
+
+        if (this.label) this.label.element.classList.remove('breached');
+
+        this.breached      = false;
+        this.engagedSquads = [];
+        this.hp            = newHp;
+        this.labelDirty    = true;
     }
 }
 

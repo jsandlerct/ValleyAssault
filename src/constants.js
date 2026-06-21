@@ -15,6 +15,9 @@ export const PATHS = {
     ROCK:          '/assets/cubeworld/Environment/glTF/Rock1.gltf',
     ARCHER:        '/assets/cubeworld/Characters/glTF/Character_Male_1.gltf',
     MAGE:          '/assets/cubeworld/Enemies/glTF/Wizard.gltf',
+    KNIGHT_HORSE:  '/assets/cubeworld/Animals/glTF/Horse.gltf',
+    KNIGHT_RIDER:  '/assets/cubeworld/Characters/glTF/Character_Male_2.gltf',
+    BOW:           '/assets/cubeworld/Tools/glTF/Pickaxe_Wood.gltf',
 };
 
 // ── Scene / renderer ─────────────────────────────────────────────────────────
@@ -64,7 +67,7 @@ export const DEFENDERS = {
 
 // ── Projectiles ───────────────────────────────────────────────────────────────
 export const PROJECTILES = {
-    TICK_INTERVAL:          0.35,
+    TICK_INTERVAL:          0.70,
     ARROW_DURATION:         0.45,
     BOLT_DURATION:          0.45,
     SPEAR_DURATION:         0.90,
@@ -103,11 +106,40 @@ export const UNIT_HEIGHTS = {
     ogre:   1.4,
 };
 
+// ── Knight defender ───────────────────────────────────────────────────────────
+export const KNIGHT = {
+    // Model assembly
+    HORSE_H:      1.2,    // normalized horse height (world units)
+    RIDER_H:      0.70,   // normalized rider height
+    SADDLE_FRAC:  0.50,   // fraction of horse height where rider feet sit
+    SILVER:       0xd8e0ec,
+
+    // Combat stats — same HP/attack as ogre, speed marginally faster than goblin (2.88)
+    HP:           120,
+    ATTACK:       25,
+    ATTACK_SPEED: 0.5,
+    SPEED:        3.1,
+};
+
 // ── Total unit pool (shared across all 6 squads) ──────────────────────────────
 export const TOTAL_UNITS = {
     ogre:   9,
     orc:    45,
     goblin: 45,
+};
+
+// ── Pool sizes — max units that can ever exist across all years ────────────────
+// Year 1 starts with 99 units; damage bonuses can add up to 300 more per year.
+export const POOL_SIZES = {
+    ogre:   10,
+    orc:    200,
+    goblin: 200,
+};
+
+// ── Campaign ──────────────────────────────────────────────────────────────────
+export const CAMPAIGN = {
+    MAX_YEARS:     10,
+    STARTING_OGRES: 9,
 };
 
 // ── Pre-battle setup screen ───────────────────────────────────────────────────
@@ -134,9 +166,24 @@ export const SETUP = {
     SETUP_CAMERA_TARGET: { x: 0, y: 0,  z: 10 },
 };
 
+// ── Defense reinforcements ────────────────────────────────────────────────────
+export const REINFORCEMENT = {
+    TRICKLE_INTERVAL: 10,   // seconds between trickle archer spawns
+    DEFENDER_CAP:     20,   // max alive defenders per wall segment
+
+    EVENT1_MIN: 10, EVENT1_MAX: 25,
+    EVENT2_MIN: 35, EVENT2_MAX: 55,
+    EVENT3_MIN: 80, EVENT3_MAX: 100,
+
+    R1_ARCHERS:   4,
+    R1_MAGES:     2,
+    SORTIE_COUNT: 12,
+};
+
 // ── Main game config ──────────────────────────────────────────────────────────
 export const CONFIG = {
     SQUAD_COUNT: 3,
+    BREACH_VICTORY_COUNT: 10,  // units that must survive the breach to win
     // Default composition per squad — kept for reference; pools use TOTAL_UNITS
     SQUAD_COMPOSITION: [
         { unitType: 'ogre',   count: 2,  columns: 2 },
@@ -150,16 +197,18 @@ export const CONFIG = {
         ogre:   { hp: 120, attack: 25,   attackSpeed: 0.5, speed: 1.8 },
     },
 
-    SECTION_HP:       2000,
+    SECTION_HP:       1000,
 
     COMBAT_TICK_RATE: 1.0,
 
     WALL_Z:            -25,
+    BREACH_THROUGH_Z:  -35,  // unit counts as "through" once past this Z (far edge of brown ground) and all knights dead
     STAGING_Z:          15,
     SECTION_X: { A: -20, B: 0, C: 20 },
     SECTION_BOUNDS: { A: [-30, -10], B: [-10, 10], C: [10, 30] },
     MARCH_ARRIVE_DIST: 3,
     MARCH_HEADSTART_S: 3,  // seconds non-vanguard units wait before marching
+    RETREAT_Z:         38, // units despawn (escaped) once they pass this Z
     GOBLIN_RANGE:      8,   // goblins stop further back — ranged unit
 
     WALL_SCALE: 1.0,
