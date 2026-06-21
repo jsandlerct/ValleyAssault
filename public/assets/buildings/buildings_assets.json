@@ -1,0 +1,1028 @@
+{
+  "version": "1.0",
+  "basePath": "/assets/buildings/glTF/",
+  "preview": "/assets/buildings/Preview.jpg",
+  "note": "Storage_FirstAge_Leve3.gltf is a typo on disk (missing 'l' in Level3) — filename preserved as-is.",
+  "assets": [
+    {
+      "id": "archery_firstage_1",
+      "name": "Archery",
+      "category": "military",
+      "era": "FirstAge",
+      "level": 1,
+      "path": "/assets/buildings/glTF/Archery_FirstAge_Level1.gltf"
+    },
+    {
+      "id": "archery_firstage_2",
+      "name": "Archery",
+      "category": "military",
+      "era": "FirstAge",
+      "level": 2,
+      "path": "/assets/buildings/glTF/Archery_FirstAge_Level2.gltf"
+    },
+    {
+      "id": "archery_firstage_3",
+      "name": "Archery",
+      "category": "military",
+      "era": "FirstAge",
+      "level": 3,
+      "path": "/assets/buildings/glTF/Archery_FirstAge_Level3.gltf"
+    },
+    {
+      "id": "archery_secondage_1",
+      "name": "Archery",
+      "category": "military",
+      "era": "SecondAge",
+      "level": 1,
+      "path": "/assets/buildings/glTF/Archery_SecondAge_Level1.gltf"
+    },
+    {
+      "id": "archery_secondage_2",
+      "name": "Archery",
+      "category": "military",
+      "era": "SecondAge",
+      "level": 2,
+      "path": "/assets/buildings/glTF/Archery_SecondAge_Level2.gltf"
+    },
+    {
+      "id": "archery_secondage_3",
+      "name": "Archery",
+      "category": "military",
+      "era": "SecondAge",
+      "level": 3,
+      "path": "/assets/buildings/glTF/Archery_SecondAge_Level3.gltf"
+    },
+    {
+      "id": "barracks_firstage_1",
+      "name": "Barracks",
+      "category": "military",
+      "era": "FirstAge",
+      "level": 1,
+      "path": "/assets/buildings/glTF/Barracks_FirstAge_Level1.gltf"
+    },
+    {
+      "id": "barracks_firstage_2",
+      "name": "Barracks",
+      "category": "military",
+      "era": "FirstAge",
+      "level": 2,
+      "path": "/assets/buildings/glTF/Barracks_FirstAge_Level2.gltf"
+    },
+    {
+      "id": "barracks_firstage_3",
+      "name": "Barracks",
+      "category": "military",
+      "era": "FirstAge",
+      "level": 3,
+      "path": "/assets/buildings/glTF/Barracks_FirstAge_Level3.gltf"
+    },
+    {
+      "id": "barracks_secondage_1",
+      "name": "Barracks",
+      "category": "military",
+      "era": "SecondAge",
+      "level": 1,
+      "path": "/assets/buildings/glTF/Barracks_SecondAge_Level1.gltf"
+    },
+    {
+      "id": "barracks_secondage_2",
+      "name": "Barracks",
+      "category": "military",
+      "era": "SecondAge",
+      "level": 2,
+      "path": "/assets/buildings/glTF/Barracks_SecondAge_Level2.gltf"
+    },
+    {
+      "id": "barracks_secondage_3",
+      "name": "Barracks",
+      "category": "military",
+      "era": "SecondAge",
+      "level": 3,
+      "path": "/assets/buildings/glTF/Barracks_SecondAge_Level3.gltf"
+    },
+    {
+      "id": "watchtower_firstage_1",
+      "name": "WatchTower",
+      "category": "military",
+      "era": "FirstAge",
+      "level": 1,
+      "path": "/assets/buildings/glTF/WatchTower_FirstAge_Level1.gltf"
+    },
+    {
+      "id": "watchtower_firstage_2",
+      "name": "WatchTower",
+      "category": "military",
+      "era": "FirstAge",
+      "level": 2,
+      "path": "/assets/buildings/glTF/WatchTower_FirstAge_Level2.gltf"
+    },
+    {
+      "id": "watchtower_firstage_3",
+      "name": "WatchTower",
+      "category": "military",
+      "era": "FirstAge",
+      "level": 3,
+      "path": "/assets/buildings/glTF/WatchTower_FirstAge_Level3.gltf"
+    },
+    {
+      "id": "watchtower_secondage_1",
+      "name": "WatchTower",
+      "category": "military",
+      "era": "SecondAge",
+      "level": 1,
+      "path": "/assets/buildings/glTF/WatchTower_SecondAge_Level1.gltf"
+    },
+    {
+      "id": "watchtower_secondage_2",
+      "name": "WatchTower",
+      "category": "military",
+      "era": "SecondAge",
+      "level": 2,
+      "path": "/assets/buildings/glTF/WatchTower_SecondAge_Level2.gltf"
+    },
+    {
+      "id": "watchtower_secondage_3",
+      "name": "WatchTower",
+      "category": "military",
+      "era": "SecondAge",
+      "level": 3,
+      "path": "/assets/buildings/glTF/WatchTower_SecondAge_Level3.gltf"
+    },
+    {
+      "id": "wall_firstage",
+      "name": "Wall",
+      "category": "military",
+      "era": "FirstAge",
+      "path": "/assets/buildings/glTF/Wall_FirstAge.gltf"
+    },
+    {
+      "id": "wall_secondage",
+      "name": "Wall",
+      "category": "military",
+      "era": "SecondAge",
+      "path": "/assets/buildings/glTF/Wall_SecondAge.gltf"
+    },
+    {
+      "id": "walltowers_firstage",
+      "name": "WallTowers",
+      "category": "military",
+      "era": "FirstAge",
+      "variant": "standard",
+      "path": "/assets/buildings/glTF/WallTowers_FirstAge.gltf"
+    },
+    {
+      "id": "walltowers_secondage",
+      "name": "WallTowers",
+      "category": "military",
+      "era": "SecondAge",
+      "variant": "standard",
+      "path": "/assets/buildings/glTF/WallTowers_SecondAge.gltf"
+    },
+    {
+      "id": "walltowers_door_firstage",
+      "name": "WallTowers",
+      "category": "military",
+      "era": "FirstAge",
+      "variant": "door",
+      "path": "/assets/buildings/glTF/WallTowers_Door_FirstAge.gltf"
+    },
+    {
+      "id": "walltowers_door_secondage",
+      "name": "WallTowers",
+      "category": "military",
+      "era": "SecondAge",
+      "variant": "door",
+      "path": "/assets/buildings/glTF/WallTowers_Door_SecondAge.gltf"
+    },
+    {
+      "id": "walltowers_doorclosed_firstage",
+      "name": "WallTowers",
+      "category": "military",
+      "era": "FirstAge",
+      "variant": "door_closed",
+      "path": "/assets/buildings/glTF/WallTowers_DoorClosed_FirstAge.gltf"
+    },
+    {
+      "id": "walltowers_doorclosed_secondage",
+      "name": "WallTowers",
+      "category": "military",
+      "era": "SecondAge",
+      "variant": "door_closed",
+      "path": "/assets/buildings/glTF/WallTowers_DoorClosed_SecondAge.gltf"
+    },
+    {
+      "id": "towncenter_firstage_1",
+      "name": "TownCenter",
+      "category": "civilian",
+      "era": "FirstAge",
+      "level": 1,
+      "path": "/assets/buildings/glTF/TownCenter_FirstAge_Level1.gltf"
+    },
+    {
+      "id": "towncenter_firstage_2",
+      "name": "TownCenter",
+      "category": "civilian",
+      "era": "FirstAge",
+      "level": 2,
+      "path": "/assets/buildings/glTF/TownCenter_FirstAge_Level2.gltf"
+    },
+    {
+      "id": "towncenter_firstage_3",
+      "name": "TownCenter",
+      "category": "civilian",
+      "era": "FirstAge",
+      "level": 3,
+      "path": "/assets/buildings/glTF/TownCenter_FirstAge_Level3.gltf"
+    },
+    {
+      "id": "towncenter_secondage_1",
+      "name": "TownCenter",
+      "category": "civilian",
+      "era": "SecondAge",
+      "level": 1,
+      "path": "/assets/buildings/glTF/TownCenter_SecondAge_Level1.gltf"
+    },
+    {
+      "id": "towncenter_secondage_2",
+      "name": "TownCenter",
+      "category": "civilian",
+      "era": "SecondAge",
+      "level": 2,
+      "path": "/assets/buildings/glTF/TownCenter_SecondAge_Level2.gltf"
+    },
+    {
+      "id": "towncenter_secondage_3",
+      "name": "TownCenter",
+      "category": "civilian",
+      "era": "SecondAge",
+      "level": 3,
+      "path": "/assets/buildings/glTF/TownCenter_SecondAge_Level3.gltf"
+    },
+    {
+      "id": "houses_firstage_1_1",
+      "name": "Houses",
+      "category": "civilian",
+      "era": "FirstAge",
+      "variant": 1,
+      "level": 1,
+      "path": "/assets/buildings/glTF/Houses_FirstAge_1_Level1.gltf"
+    },
+    {
+      "id": "houses_firstage_1_2",
+      "name": "Houses",
+      "category": "civilian",
+      "era": "FirstAge",
+      "variant": 1,
+      "level": 2,
+      "path": "/assets/buildings/glTF/Houses_FirstAge_1_Level2.gltf"
+    },
+    {
+      "id": "houses_firstage_1_3",
+      "name": "Houses",
+      "category": "civilian",
+      "era": "FirstAge",
+      "variant": 1,
+      "level": 3,
+      "path": "/assets/buildings/glTF/Houses_FirstAge_1_Level3.gltf"
+    },
+    {
+      "id": "houses_firstage_2_1",
+      "name": "Houses",
+      "category": "civilian",
+      "era": "FirstAge",
+      "variant": 2,
+      "level": 1,
+      "path": "/assets/buildings/glTF/Houses_FirstAge_2_Level1.gltf"
+    },
+    {
+      "id": "houses_firstage_2_2",
+      "name": "Houses",
+      "category": "civilian",
+      "era": "FirstAge",
+      "variant": 2,
+      "level": 2,
+      "path": "/assets/buildings/glTF/Houses_FirstAge_2_Level2.gltf"
+    },
+    {
+      "id": "houses_firstage_2_3",
+      "name": "Houses",
+      "category": "civilian",
+      "era": "FirstAge",
+      "variant": 2,
+      "level": 3,
+      "path": "/assets/buildings/glTF/Houses_FirstAge_2_Level3.gltf"
+    },
+    {
+      "id": "houses_firstage_3_1",
+      "name": "Houses",
+      "category": "civilian",
+      "era": "FirstAge",
+      "variant": 3,
+      "level": 1,
+      "path": "/assets/buildings/glTF/Houses_FirstAge_3_Level1.gltf"
+    },
+    {
+      "id": "houses_firstage_3_2",
+      "name": "Houses",
+      "category": "civilian",
+      "era": "FirstAge",
+      "variant": 3,
+      "level": 2,
+      "path": "/assets/buildings/glTF/Houses_FirstAge_3_Level2.gltf"
+    },
+    {
+      "id": "houses_firstage_3_3",
+      "name": "Houses",
+      "category": "civilian",
+      "era": "FirstAge",
+      "variant": 3,
+      "level": 3,
+      "path": "/assets/buildings/glTF/Houses_FirstAge_3_Level3.gltf"
+    },
+    {
+      "id": "houses_secondage_1_1",
+      "name": "Houses",
+      "category": "civilian",
+      "era": "SecondAge",
+      "variant": 1,
+      "level": 1,
+      "path": "/assets/buildings/glTF/Houses_SecondAge_1_Level1.gltf"
+    },
+    {
+      "id": "houses_secondage_1_2",
+      "name": "Houses",
+      "category": "civilian",
+      "era": "SecondAge",
+      "variant": 1,
+      "level": 2,
+      "path": "/assets/buildings/glTF/Houses_SecondAge_1_Level2.gltf"
+    },
+    {
+      "id": "houses_secondage_1_3",
+      "name": "Houses",
+      "category": "civilian",
+      "era": "SecondAge",
+      "variant": 1,
+      "level": 3,
+      "path": "/assets/buildings/glTF/Houses_SecondAge_1_Level3.gltf"
+    },
+    {
+      "id": "houses_secondage_2_1",
+      "name": "Houses",
+      "category": "civilian",
+      "era": "SecondAge",
+      "variant": 2,
+      "level": 1,
+      "path": "/assets/buildings/glTF/Houses_SecondAge_2_Level1.gltf"
+    },
+    {
+      "id": "houses_secondage_2_2",
+      "name": "Houses",
+      "category": "civilian",
+      "era": "SecondAge",
+      "variant": 2,
+      "level": 2,
+      "path": "/assets/buildings/glTF/Houses_SecondAge_2_Level2.gltf"
+    },
+    {
+      "id": "houses_secondage_2_3",
+      "name": "Houses",
+      "category": "civilian",
+      "era": "SecondAge",
+      "variant": 2,
+      "level": 3,
+      "path": "/assets/buildings/glTF/Houses_SecondAge_2_Level3.gltf"
+    },
+    {
+      "id": "houses_secondage_3_1",
+      "name": "Houses",
+      "category": "civilian",
+      "era": "SecondAge",
+      "variant": 3,
+      "level": 1,
+      "path": "/assets/buildings/glTF/Houses_SecondAge_3_Level1.gltf"
+    },
+    {
+      "id": "houses_secondage_3_2",
+      "name": "Houses",
+      "category": "civilian",
+      "era": "SecondAge",
+      "variant": 3,
+      "level": 2,
+      "path": "/assets/buildings/glTF/Houses_SecondAge_3_Level2.gltf"
+    },
+    {
+      "id": "houses_secondage_3_3",
+      "name": "Houses",
+      "category": "civilian",
+      "era": "SecondAge",
+      "variant": 3,
+      "level": 3,
+      "path": "/assets/buildings/glTF/Houses_SecondAge_3_Level3.gltf"
+    },
+    {
+      "id": "towerhouse_firstage",
+      "name": "TowerHouse",
+      "category": "civilian",
+      "era": "FirstAge",
+      "path": "/assets/buildings/glTF/TowerHouse_FirstAge.gltf"
+    },
+    {
+      "id": "towerhouse_secondage",
+      "name": "TowerHouse",
+      "category": "civilian",
+      "era": "SecondAge",
+      "path": "/assets/buildings/glTF/TowerHouse_SecondAge.gltf"
+    },
+    {
+      "id": "market_firstage_1",
+      "name": "Market",
+      "category": "civilian",
+      "era": "FirstAge",
+      "level": 1,
+      "path": "/assets/buildings/glTF/Market_FirstAge_Level1.gltf"
+    },
+    {
+      "id": "market_firstage_2",
+      "name": "Market",
+      "category": "civilian",
+      "era": "FirstAge",
+      "level": 2,
+      "path": "/assets/buildings/glTF/Market_FirstAge_Level2.gltf"
+    },
+    {
+      "id": "market_firstage_3",
+      "name": "Market",
+      "category": "civilian",
+      "era": "FirstAge",
+      "level": 3,
+      "path": "/assets/buildings/glTF/Market_FirstAge_Level3.gltf"
+    },
+    {
+      "id": "market_secondage_1",
+      "name": "Market",
+      "category": "civilian",
+      "era": "SecondAge",
+      "level": 1,
+      "path": "/assets/buildings/glTF/Market_SecondAge_Level1.gltf"
+    },
+    {
+      "id": "market_secondage_2",
+      "name": "Market",
+      "category": "civilian",
+      "era": "SecondAge",
+      "level": 2,
+      "path": "/assets/buildings/glTF/Market_SecondAge_Level2.gltf"
+    },
+    {
+      "id": "market_secondage_3",
+      "name": "Market",
+      "category": "civilian",
+      "era": "SecondAge",
+      "level": 3,
+      "path": "/assets/buildings/glTF/Market_SecondAge_Level3.gltf"
+    },
+    {
+      "id": "storage_firstage_1",
+      "name": "Storage",
+      "category": "civilian",
+      "era": "FirstAge",
+      "level": 1,
+      "path": "/assets/buildings/glTF/Storage_FirstAge_Level1.gltf"
+    },
+    {
+      "id": "storage_firstage_2",
+      "name": "Storage",
+      "category": "civilian",
+      "era": "FirstAge",
+      "level": 2,
+      "path": "/assets/buildings/glTF/Storage_FirstAge_Level2.gltf"
+    },
+    {
+      "id": "storage_firstage_3",
+      "name": "Storage",
+      "category": "civilian",
+      "era": "FirstAge",
+      "level": 3,
+      "path": "/assets/buildings/glTF/Storage_FirstAge_Leve3.gltf"
+    },
+    {
+      "id": "storage_secondage_1",
+      "name": "Storage",
+      "category": "civilian",
+      "era": "SecondAge",
+      "level": 1,
+      "path": "/assets/buildings/glTF/Storage_SecondAge_Level1.gltf"
+    },
+    {
+      "id": "storage_secondage_2",
+      "name": "Storage",
+      "category": "civilian",
+      "era": "SecondAge",
+      "level": 2,
+      "path": "/assets/buildings/glTF/Storage_SecondAge_Level2.gltf"
+    },
+    {
+      "id": "storage_secondage_3",
+      "name": "Storage",
+      "category": "civilian",
+      "era": "SecondAge",
+      "level": 3,
+      "path": "/assets/buildings/glTF/Storage_SecondAge_Level3.gltf"
+    },
+    {
+      "id": "farm_firstage_1",
+      "name": "Farm",
+      "category": "civilian",
+      "era": "FirstAge",
+      "level": 1,
+      "variant": "standard",
+      "path": "/assets/buildings/glTF/Farm_FirstAge_Level1.gltf"
+    },
+    {
+      "id": "farm_firstage_1_wheat",
+      "name": "Farm",
+      "category": "civilian",
+      "era": "FirstAge",
+      "level": 1,
+      "variant": "wheat",
+      "path": "/assets/buildings/glTF/Farm_FirstAge_Level1_Wheat.gltf"
+    },
+    {
+      "id": "farm_firstage_2",
+      "name": "Farm",
+      "category": "civilian",
+      "era": "FirstAge",
+      "level": 2,
+      "variant": "standard",
+      "path": "/assets/buildings/glTF/Farm_FirstAge_Level2.gltf"
+    },
+    {
+      "id": "farm_firstage_2_wheat",
+      "name": "Farm",
+      "category": "civilian",
+      "era": "FirstAge",
+      "level": 2,
+      "variant": "wheat",
+      "path": "/assets/buildings/glTF/Farm_FirstAge_Level2_Wheat.gltf"
+    },
+    {
+      "id": "farm_firstage_3",
+      "name": "Farm",
+      "category": "civilian",
+      "era": "FirstAge",
+      "level": 3,
+      "variant": "standard",
+      "path": "/assets/buildings/glTF/Farm_FirstAge_Level3.gltf"
+    },
+    {
+      "id": "farm_firstage_3_wheat",
+      "name": "Farm",
+      "category": "civilian",
+      "era": "FirstAge",
+      "level": 3,
+      "variant": "wheat",
+      "path": "/assets/buildings/glTF/Farm_FirstAge_Level3_Wheat.gltf"
+    },
+    {
+      "id": "farm_secondage_1",
+      "name": "Farm",
+      "category": "civilian",
+      "era": "SecondAge",
+      "level": 1,
+      "variant": "standard",
+      "path": "/assets/buildings/glTF/Farm_SecondAge_Level1.gltf"
+    },
+    {
+      "id": "farm_secondage_1_wheat",
+      "name": "Farm",
+      "category": "civilian",
+      "era": "SecondAge",
+      "level": 1,
+      "variant": "wheat",
+      "path": "/assets/buildings/glTF/Farm_SecondAge_Level1_Wheat.gltf"
+    },
+    {
+      "id": "farm_secondage_2",
+      "name": "Farm",
+      "category": "civilian",
+      "era": "SecondAge",
+      "level": 2,
+      "variant": "standard",
+      "path": "/assets/buildings/glTF/Farm_SecondAge_Level2.gltf"
+    },
+    {
+      "id": "farm_secondage_2_wheat",
+      "name": "Farm",
+      "category": "civilian",
+      "era": "SecondAge",
+      "level": 2,
+      "variant": "wheat",
+      "path": "/assets/buildings/glTF/Farm_SecondAge_Level2_Wheat.gltf"
+    },
+    {
+      "id": "farm_secondage_3",
+      "name": "Farm",
+      "category": "civilian",
+      "era": "SecondAge",
+      "level": 3,
+      "variant": "standard",
+      "path": "/assets/buildings/glTF/Farm_SecondAge_Level3.gltf"
+    },
+    {
+      "id": "farm_secondage_3_wheat",
+      "name": "Farm",
+      "category": "civilian",
+      "era": "SecondAge",
+      "level": 3,
+      "variant": "wheat",
+      "path": "/assets/buildings/glTF/Farm_SecondAge_Level3_Wheat.gltf"
+    },
+    {
+      "id": "farm_dirt_1",
+      "name": "Farm",
+      "category": "civilian",
+      "era": null,
+      "level": 1,
+      "variant": "dirt",
+      "path": "/assets/buildings/glTF/Farm_Dirt_Level1.gltf"
+    },
+    {
+      "id": "farm_dirt_2",
+      "name": "Farm",
+      "category": "civilian",
+      "era": null,
+      "level": 2,
+      "variant": "dirt",
+      "path": "/assets/buildings/glTF/Farm_Dirt_Level2.gltf"
+    },
+    {
+      "id": "farm_dirt_3",
+      "name": "Farm",
+      "category": "civilian",
+      "era": null,
+      "level": 3,
+      "variant": "dirt",
+      "path": "/assets/buildings/glTF/Farm_Dirt_Level3.gltf"
+    },
+    {
+      "id": "windmill_firstage",
+      "name": "Windmill",
+      "category": "civilian",
+      "era": "FirstAge",
+      "path": "/assets/buildings/glTF/Windmill_FirstAge.gltf"
+    },
+    {
+      "id": "windmill_secondage",
+      "name": "Windmill",
+      "category": "civilian",
+      "era": "SecondAge",
+      "path": "/assets/buildings/glTF/Windmill_SecondAge.gltf"
+    },
+    {
+      "id": "dock_firstage",
+      "name": "Dock",
+      "category": "civilian",
+      "era": "FirstAge",
+      "path": "/assets/buildings/glTF/Dock_FirstAge.gltf"
+    },
+    {
+      "id": "port_firstage_1",
+      "name": "Port",
+      "category": "civilian",
+      "era": "FirstAge",
+      "level": 1,
+      "path": "/assets/buildings/glTF/Port_FirstAge_Level1.gltf"
+    },
+    {
+      "id": "port_firstage_2",
+      "name": "Port",
+      "category": "civilian",
+      "era": "FirstAge",
+      "level": 2,
+      "path": "/assets/buildings/glTF/Port_FirstAge_Level2.gltf"
+    },
+    {
+      "id": "port_firstage_3",
+      "name": "Port",
+      "category": "civilian",
+      "era": "FirstAge",
+      "level": 3,
+      "path": "/assets/buildings/glTF/Port_FirstAge_Level3.gltf"
+    },
+    {
+      "id": "port_secondage_1",
+      "name": "Port",
+      "category": "civilian",
+      "era": "SecondAge",
+      "level": 1,
+      "path": "/assets/buildings/glTF/Port_SecondAge_Level1.gltf"
+    },
+    {
+      "id": "port_secondage_2",
+      "name": "Port",
+      "category": "civilian",
+      "era": "SecondAge",
+      "level": 2,
+      "path": "/assets/buildings/glTF/Port_SecondAge_Level2.gltf"
+    },
+    {
+      "id": "port_secondage_3",
+      "name": "Port",
+      "category": "civilian",
+      "era": "SecondAge",
+      "level": 3,
+      "path": "/assets/buildings/glTF/Port_SecondAge_Level3.gltf"
+    },
+    {
+      "id": "temple_firstage_1",
+      "name": "Temple",
+      "category": "special",
+      "era": "FirstAge",
+      "level": 1,
+      "path": "/assets/buildings/glTF/Temple_FirstAge_Level1.gltf"
+    },
+    {
+      "id": "temple_firstage_2",
+      "name": "Temple",
+      "category": "special",
+      "era": "FirstAge",
+      "level": 2,
+      "path": "/assets/buildings/glTF/Temple_FirstAge_Level2.gltf"
+    },
+    {
+      "id": "temple_firstage_3",
+      "name": "Temple",
+      "category": "special",
+      "era": "FirstAge",
+      "level": 3,
+      "path": "/assets/buildings/glTF/Temple_FirstAge_Level3.gltf"
+    },
+    {
+      "id": "temple_secondage_1",
+      "name": "Temple",
+      "category": "special",
+      "era": "SecondAge",
+      "level": 1,
+      "path": "/assets/buildings/glTF/Temple_SecondAge_Level1.gltf"
+    },
+    {
+      "id": "temple_secondage_2",
+      "name": "Temple",
+      "category": "special",
+      "era": "SecondAge",
+      "level": 2,
+      "path": "/assets/buildings/glTF/Temple_SecondAge_Level2.gltf"
+    },
+    {
+      "id": "temple_secondage_3",
+      "name": "Temple",
+      "category": "special",
+      "era": "SecondAge",
+      "level": 3,
+      "path": "/assets/buildings/glTF/Temple_SecondAge_Level3.gltf"
+    },
+    {
+      "id": "wonder_firstage_1",
+      "name": "Wonder",
+      "category": "special",
+      "era": "FirstAge",
+      "level": 1,
+      "path": "/assets/buildings/glTF/Wonder_FirstAge_Level1.gltf"
+    },
+    {
+      "id": "wonder_firstage_2",
+      "name": "Wonder",
+      "category": "special",
+      "era": "FirstAge",
+      "level": 2,
+      "path": "/assets/buildings/glTF/Wonder_FirstAge_Level2.gltf"
+    },
+    {
+      "id": "wonder_firstage_3",
+      "name": "Wonder",
+      "category": "special",
+      "era": "FirstAge",
+      "level": 3,
+      "path": "/assets/buildings/glTF/Wonder_FirstAge_Level3.gltf"
+    },
+    {
+      "id": "wonder_secondage_1",
+      "name": "Wonder",
+      "category": "special",
+      "era": "SecondAge",
+      "level": 1,
+      "path": "/assets/buildings/glTF/Wonder_SecondAge_Level1.gltf"
+    },
+    {
+      "id": "wonder_secondage_2",
+      "name": "Wonder",
+      "category": "special",
+      "era": "SecondAge",
+      "level": 2,
+      "path": "/assets/buildings/glTF/Wonder_SecondAge_Level2.gltf"
+    },
+    {
+      "id": "wonder_secondage_3",
+      "name": "Wonder",
+      "category": "special",
+      "era": "SecondAge",
+      "level": 3,
+      "path": "/assets/buildings/glTF/Wonder_SecondAge_Level3.gltf"
+    },
+    {
+      "id": "wonderwalls_firstage",
+      "name": "WonderWalls",
+      "category": "special",
+      "era": "FirstAge",
+      "path": "/assets/buildings/glTF/WonderWalls_FirstAge.gltf"
+    },
+    {
+      "id": "wonderwalls_secondage",
+      "name": "WonderWalls",
+      "category": "special",
+      "era": "SecondAge",
+      "path": "/assets/buildings/glTF/WonderWalls_SecondAge.gltf"
+    },
+    {
+      "id": "mine",
+      "name": "Mine",
+      "category": "special",
+      "era": null,
+      "path": "/assets/buildings/glTF/Mine.gltf"
+    },
+    {
+      "id": "barrel",
+      "name": "Barrel",
+      "category": "prop",
+      "path": "/assets/buildings/glTF/Barrel.gltf"
+    },
+    {
+      "id": "crate",
+      "name": "Crate",
+      "category": "prop",
+      "variant": "single",
+      "path": "/assets/buildings/glTF/Crate.gltf"
+    },
+    {
+      "id": "crate_stack1",
+      "name": "Crate",
+      "category": "prop",
+      "variant": "stack1",
+      "path": "/assets/buildings/glTF/Crate_Stack1.gltf"
+    },
+    {
+      "id": "crate_stack2",
+      "name": "Crate",
+      "category": "prop",
+      "variant": "stack2",
+      "path": "/assets/buildings/glTF/Crate_Stack2.gltf"
+    },
+    {
+      "id": "crate_big_stack2",
+      "name": "Crate",
+      "category": "prop",
+      "variant": "big_stack2",
+      "path": "/assets/buildings/glTF/Crate_Big_Stack2.gltf"
+    },
+    {
+      "id": "logs",
+      "name": "Logs",
+      "category": "prop",
+      "path": "/assets/buildings/glTF/Logs.gltf"
+    },
+    {
+      "id": "rock",
+      "name": "Rock",
+      "category": "prop",
+      "variant": "single",
+      "path": "/assets/buildings/glTF/Rock.gltf"
+    },
+    {
+      "id": "rock_group",
+      "name": "Rock",
+      "category": "prop",
+      "variant": "group",
+      "path": "/assets/buildings/glTF/Rock_Group.gltf"
+    },
+    {
+      "id": "resource_gold_1",
+      "name": "Gold",
+      "category": "resource",
+      "variant": 1,
+      "path": "/assets/buildings/glTF/Resource_Gold_1.gltf"
+    },
+    {
+      "id": "resource_gold_2",
+      "name": "Gold",
+      "category": "resource",
+      "variant": 2,
+      "path": "/assets/buildings/glTF/Resource_Gold_2.gltf"
+    },
+    {
+      "id": "resource_gold_3",
+      "name": "Gold",
+      "category": "resource",
+      "variant": 3,
+      "path": "/assets/buildings/glTF/Resource_Gold_3.gltf"
+    },
+    {
+      "id": "resource_rock_1",
+      "name": "Rock",
+      "category": "resource",
+      "variant": 1,
+      "path": "/assets/buildings/glTF/Resource_Rock_1.gltf"
+    },
+    {
+      "id": "resource_rock_2",
+      "name": "Rock",
+      "category": "resource",
+      "variant": 2,
+      "path": "/assets/buildings/glTF/Resource_Rock_2.gltf"
+    },
+    {
+      "id": "resource_rock_3",
+      "name": "Rock",
+      "category": "resource",
+      "variant": 3,
+      "path": "/assets/buildings/glTF/Resource_Rock_3.gltf"
+    },
+    {
+      "id": "resource_pinetree",
+      "name": "PineTree",
+      "category": "resource",
+      "variant": "single",
+      "path": "/assets/buildings/glTF/Resource_PineTree.gltf"
+    },
+    {
+      "id": "resource_pinetree_group",
+      "name": "PineTree",
+      "category": "resource",
+      "variant": "group",
+      "path": "/assets/buildings/glTF/Resource_PineTree_Group.gltf"
+    },
+    {
+      "id": "resource_pinetree_group_cut",
+      "name": "PineTree",
+      "category": "resource",
+      "variant": "group_cut",
+      "path": "/assets/buildings/glTF/Resource_PineTree_Group_Cut.gltf"
+    },
+    {
+      "id": "resource_tree1",
+      "name": "Tree",
+      "category": "resource",
+      "variant": 1,
+      "path": "/assets/buildings/glTF/Resource_Tree1.gltf"
+    },
+    {
+      "id": "resource_tree2",
+      "name": "Tree",
+      "category": "resource",
+      "variant": 2,
+      "path": "/assets/buildings/glTF/Resource_Tree2.gltf"
+    },
+    {
+      "id": "resource_tree_group",
+      "name": "Tree",
+      "category": "resource",
+      "variant": "group",
+      "path": "/assets/buildings/glTF/Resource_Tree_Group.gltf"
+    },
+    {
+      "id": "resource_tree_group_cut",
+      "name": "Tree",
+      "category": "resource",
+      "variant": "group_cut",
+      "path": "/assets/buildings/glTF/Resource_Tree_Group_Cut.gltf"
+    },
+    {
+      "id": "mountain_single",
+      "name": "Mountain",
+      "category": "terrain",
+      "variant": "single",
+      "path": "/assets/buildings/glTF/Mountain_Single.gltf"
+    },
+    {
+      "id": "mountain_large_single",
+      "name": "Mountain",
+      "category": "terrain",
+      "variant": "large_single",
+      "path": "/assets/buildings/glTF/MountainLarge_Single.gltf"
+    },
+    {
+      "id": "mountain_group_1",
+      "name": "Mountain",
+      "category": "terrain",
+      "variant": "group_1",
+      "path": "/assets/buildings/glTF/Mountain_Group_1.gltf"
+    },
+    {
+      "id": "mountain_group_2",
+      "name": "Mountain",
+      "category": "terrain",
+      "variant": "group_2",
+      "path": "/assets/buildings/glTF/Mountain_Group_2.gltf"
+    }
+  ]
+}

@@ -1,0 +1,708 @@
+{
+  "version": "1.0",
+  "assets": [
+    {
+      "id": "animal_cat",
+      "name": "Cat",
+      "category": "animals",
+      "path": "/assets/cubeworld/Animals/glTF/Cat.gltf"
+    },
+    {
+      "id": "animal_chick",
+      "name": "Chick",
+      "category": "animals",
+      "path": "/assets/cubeworld/Animals/glTF/Chick.gltf"
+    },
+    {
+      "id": "animal_chicken",
+      "name": "Chicken",
+      "category": "animals",
+      "path": "/assets/cubeworld/Animals/glTF/Chicken.gltf"
+    },
+    {
+      "id": "animal_dog",
+      "name": "Dog",
+      "category": "animals",
+      "path": "/assets/cubeworld/Animals/glTF/Dog.gltf"
+    },
+    {
+      "id": "animal_horse",
+      "name": "Horse",
+      "category": "animals",
+      "path": "/assets/cubeworld/Animals/glTF/Horse.gltf"
+    },
+    {
+      "id": "animal_pig",
+      "name": "Pig",
+      "category": "animals",
+      "path": "/assets/cubeworld/Animals/glTF/Pig.gltf"
+    },
+    {
+      "id": "animal_raccoon",
+      "name": "Raccoon",
+      "category": "animals",
+      "path": "/assets/cubeworld/Animals/glTF/Raccoon.gltf"
+    },
+    {
+      "id": "animal_sheep",
+      "name": "Sheep",
+      "category": "animals",
+      "path": "/assets/cubeworld/Animals/glTF/Sheep.gltf"
+    },
+    {
+      "id": "animal_wolf",
+      "name": "Wolf",
+      "category": "animals",
+      "path": "/assets/cubeworld/Animals/glTF/Wolf.gltf"
+    },
+    {
+      "id": "block_blank",
+      "name": "Blank",
+      "category": "blocks",
+      "path": "/assets/cubeworld/Blocks/glTF/Block_Blank.gltf"
+    },
+    {
+      "id": "block_brick",
+      "name": "Brick",
+      "category": "blocks",
+      "path": "/assets/cubeworld/Blocks/glTF/Block_Brick.gltf"
+    },
+    {
+      "id": "block_cheese",
+      "name": "Cheese",
+      "category": "blocks",
+      "path": "/assets/cubeworld/Blocks/glTF/Block_Cheese.gltf"
+    },
+    {
+      "id": "block_coal",
+      "name": "Coal",
+      "category": "blocks",
+      "path": "/assets/cubeworld/Blocks/glTF/Block_Coal.gltf"
+    },
+    {
+      "id": "block_crate",
+      "name": "Crate",
+      "category": "blocks",
+      "path": "/assets/cubeworld/Blocks/glTF/Block_Crate.gltf"
+    },
+    {
+      "id": "block_crystal",
+      "name": "Crystal",
+      "category": "blocks",
+      "path": "/assets/cubeworld/Blocks/glTF/Block_Crystal.gltf"
+    },
+    {
+      "id": "block_diamond",
+      "name": "Diamond",
+      "category": "blocks",
+      "path": "/assets/cubeworld/Blocks/glTF/Block_Diamond.gltf"
+    },
+    {
+      "id": "block_dirt",
+      "name": "Dirt",
+      "category": "blocks",
+      "path": "/assets/cubeworld/Blocks/glTF/Block_Dirt.gltf"
+    },
+    {
+      "id": "block_grass",
+      "name": "Grass",
+      "category": "blocks",
+      "path": "/assets/cubeworld/Blocks/glTF/Block_Grass.gltf"
+    },
+    {
+      "id": "block_greybricks",
+      "name": "GreyBricks",
+      "category": "blocks",
+      "path": "/assets/cubeworld/Blocks/glTF/Block_GreyBricks.gltf"
+    },
+    {
+      "id": "block_ice",
+      "name": "Ice",
+      "category": "blocks",
+      "path": "/assets/cubeworld/Blocks/glTF/Block_Ice.gltf"
+    },
+    {
+      "id": "block_metal",
+      "name": "Metal",
+      "category": "blocks",
+      "path": "/assets/cubeworld/Blocks/glTF/Block_Metal.gltf"
+    },
+    {
+      "id": "block_snow",
+      "name": "Snow",
+      "category": "blocks",
+      "path": "/assets/cubeworld/Blocks/glTF/Block_Snow.gltf"
+    },
+    {
+      "id": "block_stone",
+      "name": "Stone",
+      "category": "blocks",
+      "path": "/assets/cubeworld/Blocks/glTF/Block_Stone.gltf"
+    },
+    {
+      "id": "block_woodplanks",
+      "name": "WoodPlanks",
+      "category": "blocks",
+      "path": "/assets/cubeworld/Blocks/glTF/Block_WoodPlanks.gltf"
+    },
+    {
+      "id": "character_female_1",
+      "name": "Female",
+      "category": "characters",
+      "gender": "female",
+      "variant": 1,
+      "path": "/assets/cubeworld/Characters/glTF/Character_Female_1.gltf"
+    },
+    {
+      "id": "character_female_2",
+      "name": "Female",
+      "category": "characters",
+      "gender": "female",
+      "variant": 2,
+      "path": "/assets/cubeworld/Characters/glTF/Character_Female_2.gltf"
+    },
+    {
+      "id": "character_male_1",
+      "name": "Male",
+      "category": "characters",
+      "gender": "male",
+      "variant": 1,
+      "path": "/assets/cubeworld/Characters/glTF/Character_Male_1.gltf"
+    },
+    {
+      "id": "character_male_2",
+      "name": "Male",
+      "category": "characters",
+      "gender": "male",
+      "variant": 2,
+      "path": "/assets/cubeworld/Characters/glTF/Character_Male_2.gltf"
+    },
+    {
+      "id": "enemy_demon",
+      "name": "Demon",
+      "category": "enemies",
+      "path": "/assets/cubeworld/Enemies/glTF/Demon.gltf"
+    },
+    {
+      "id": "enemy_giant",
+      "name": "Giant",
+      "category": "enemies",
+      "path": "/assets/cubeworld/Enemies/glTF/Giant.gltf"
+    },
+    {
+      "id": "enemy_goblin",
+      "name": "Goblin",
+      "category": "enemies",
+      "path": "/assets/cubeworld/Enemies/glTF/Goblin.gltf"
+    },
+    {
+      "id": "enemy_hedgehog",
+      "name": "Hedgehog",
+      "category": "enemies",
+      "path": "/assets/cubeworld/Enemies/glTF/Hedgehog.gltf"
+    },
+    {
+      "id": "enemy_skeleton",
+      "name": "Skeleton",
+      "category": "enemies",
+      "variant": "standard",
+      "path": "/assets/cubeworld/Enemies/glTF/Skeleton.gltf"
+    },
+    {
+      "id": "enemy_skeleton_armor",
+      "name": "Skeleton",
+      "category": "enemies",
+      "variant": "armor",
+      "path": "/assets/cubeworld/Enemies/glTF/Skeleton_Armor.gltf"
+    },
+    {
+      "id": "enemy_wizard",
+      "name": "Wizard",
+      "category": "enemies",
+      "path": "/assets/cubeworld/Enemies/glTF/Wizard.gltf"
+    },
+    {
+      "id": "enemy_yeti",
+      "name": "Yeti",
+      "category": "enemies",
+      "path": "/assets/cubeworld/Enemies/glTF/Yeti.gltf"
+    },
+    {
+      "id": "enemy_zombie",
+      "name": "Zombie",
+      "category": "enemies",
+      "path": "/assets/cubeworld/Enemies/glTF/Zombie.gltf"
+    },
+    {
+      "id": "env_bamboo",
+      "name": "Bamboo",
+      "category": "environment",
+      "variant": "full",
+      "path": "/assets/cubeworld/Environment/glTF/Bamboo.gltf"
+    },
+    {
+      "id": "env_bamboo_mid",
+      "name": "Bamboo",
+      "category": "environment",
+      "variant": "mid",
+      "path": "/assets/cubeworld/Environment/glTF/Bamboo_Mid.gltf"
+    },
+    {
+      "id": "env_bamboo_small",
+      "name": "Bamboo",
+      "category": "environment",
+      "variant": "small",
+      "path": "/assets/cubeworld/Environment/glTF/Bamboo_Small.gltf"
+    },
+    {
+      "id": "env_bush",
+      "name": "Bush",
+      "category": "environment",
+      "path": "/assets/cubeworld/Environment/glTF/Bush.gltf"
+    },
+    {
+      "id": "env_button",
+      "name": "Button",
+      "category": "environment",
+      "path": "/assets/cubeworld/Environment/glTF/Button.gltf"
+    },
+    {
+      "id": "env_cart",
+      "name": "Cart",
+      "category": "environment",
+      "path": "/assets/cubeworld/Environment/glTF/Cart.gltf"
+    },
+    {
+      "id": "env_chest_closed",
+      "name": "Chest",
+      "category": "environment",
+      "variant": "closed",
+      "path": "/assets/cubeworld/Environment/glTF/Chest_Closed.gltf"
+    },
+    {
+      "id": "env_chest_open",
+      "name": "Chest",
+      "category": "environment",
+      "variant": "open",
+      "path": "/assets/cubeworld/Environment/glTF/Chest_Open.gltf"
+    },
+    {
+      "id": "env_crystal_big",
+      "name": "Crystal",
+      "category": "environment",
+      "variant": "big",
+      "path": "/assets/cubeworld/Environment/glTF/Crystal_Big.gltf"
+    },
+    {
+      "id": "env_crystal_small",
+      "name": "Crystal",
+      "category": "environment",
+      "variant": "small",
+      "path": "/assets/cubeworld/Environment/glTF/Crystal_Small.gltf"
+    },
+    {
+      "id": "env_deadtree_1",
+      "name": "DeadTree",
+      "category": "environment",
+      "variant": 1,
+      "path": "/assets/cubeworld/Environment/glTF/DeadTree_1.gltf"
+    },
+    {
+      "id": "env_deadtree_2",
+      "name": "DeadTree",
+      "category": "environment",
+      "variant": 2,
+      "path": "/assets/cubeworld/Environment/glTF/DeadTree_2.gltf"
+    },
+    {
+      "id": "env_deadtree_3",
+      "name": "DeadTree",
+      "category": "environment",
+      "variant": 3,
+      "path": "/assets/cubeworld/Environment/glTF/DeadTree_3.gltf"
+    },
+    {
+      "id": "env_door_closed",
+      "name": "Door",
+      "category": "environment",
+      "variant": "closed",
+      "path": "/assets/cubeworld/Environment/glTF/Door_Closed.gltf"
+    },
+    {
+      "id": "env_fence_center",
+      "name": "Fence",
+      "category": "environment",
+      "variant": "center",
+      "path": "/assets/cubeworld/Environment/glTF/Fence_Center.gltf"
+    },
+    {
+      "id": "env_fence_corner",
+      "name": "Fence",
+      "category": "environment",
+      "variant": "corner",
+      "path": "/assets/cubeworld/Environment/glTF/Fence_Corner.gltf"
+    },
+    {
+      "id": "env_fence_end",
+      "name": "Fence",
+      "category": "environment",
+      "variant": "end",
+      "path": "/assets/cubeworld/Environment/glTF/Fence_End.gltf"
+    },
+    {
+      "id": "env_fence_t",
+      "name": "Fence",
+      "category": "environment",
+      "variant": "t_junction",
+      "path": "/assets/cubeworld/Environment/glTF/Fence_T.gltf"
+    },
+    {
+      "id": "env_flowers_1",
+      "name": "Flowers",
+      "category": "environment",
+      "variant": 1,
+      "path": "/assets/cubeworld/Environment/glTF/Flowers_1.gltf"
+    },
+    {
+      "id": "env_flowers_2",
+      "name": "Flowers",
+      "category": "environment",
+      "variant": 2,
+      "path": "/assets/cubeworld/Environment/glTF/Flowers_2.gltf"
+    },
+    {
+      "id": "env_grass_big",
+      "name": "Grass",
+      "category": "environment",
+      "variant": "big",
+      "path": "/assets/cubeworld/Environment/glTF/Grass_Big.gltf"
+    },
+    {
+      "id": "env_grass_small",
+      "name": "Grass",
+      "category": "environment",
+      "variant": "small",
+      "path": "/assets/cubeworld/Environment/glTF/Grass_Small.gltf"
+    },
+    {
+      "id": "env_key",
+      "name": "Key",
+      "category": "environment",
+      "path": "/assets/cubeworld/Environment/glTF/Key.gltf"
+    },
+    {
+      "id": "env_lever_left",
+      "name": "Lever",
+      "category": "environment",
+      "variant": "left",
+      "path": "/assets/cubeworld/Environment/glTF/Lever_Left.gltf"
+    },
+    {
+      "id": "env_lever_right",
+      "name": "Lever",
+      "category": "environment",
+      "variant": "right",
+      "path": "/assets/cubeworld/Environment/glTF/Lever_Right.gltf"
+    },
+    {
+      "id": "env_mushroom",
+      "name": "Mushroom",
+      "category": "environment",
+      "path": "/assets/cubeworld/Environment/glTF/Mushroom.gltf"
+    },
+    {
+      "id": "env_plant_2",
+      "name": "Plant",
+      "category": "environment",
+      "variant": 2,
+      "path": "/assets/cubeworld/Environment/glTF/Plant_2.gltf"
+    },
+    {
+      "id": "env_plant_3",
+      "name": "Plant",
+      "category": "environment",
+      "variant": 3,
+      "path": "/assets/cubeworld/Environment/glTF/Plant_3.gltf"
+    },
+    {
+      "id": "env_rail_corner",
+      "name": "Rail",
+      "category": "environment",
+      "variant": "corner",
+      "path": "/assets/cubeworld/Environment/glTF/Rail_Corner.gltf"
+    },
+    {
+      "id": "env_rail_incline",
+      "name": "Rail",
+      "category": "environment",
+      "variant": "incline",
+      "path": "/assets/cubeworld/Environment/glTF/Rail_Incline.gltf"
+    },
+    {
+      "id": "env_rail_straight",
+      "name": "Rail",
+      "category": "environment",
+      "variant": "straight",
+      "path": "/assets/cubeworld/Environment/glTF/Rail_Straight.gltf"
+    },
+    {
+      "id": "env_rock1",
+      "name": "Rock",
+      "category": "environment",
+      "variant": 1,
+      "path": "/assets/cubeworld/Environment/glTF/Rock1.gltf"
+    },
+    {
+      "id": "env_rock2",
+      "name": "Rock",
+      "category": "environment",
+      "variant": 2,
+      "path": "/assets/cubeworld/Environment/glTF/Rock2.gltf"
+    },
+    {
+      "id": "env_tree_1",
+      "name": "Tree",
+      "category": "environment",
+      "variant": 1,
+      "path": "/assets/cubeworld/Environment/glTF/Tree_1.gltf"
+    },
+    {
+      "id": "env_tree_2",
+      "name": "Tree",
+      "category": "environment",
+      "variant": 2,
+      "path": "/assets/cubeworld/Environment/glTF/Tree_2.gltf"
+    },
+    {
+      "id": "env_tree_3",
+      "name": "Tree",
+      "category": "environment",
+      "variant": 3,
+      "path": "/assets/cubeworld/Environment/glTF/Tree_3.gltf"
+    },
+    {
+      "id": "pixel_block_blank",
+      "name": "Blank",
+      "category": "pixel_blocks",
+      "path": "/assets/cubeworld/Pixel Blocks/glTF/Block_Blank.gltf"
+    },
+    {
+      "id": "pixel_block_square",
+      "name": "Square",
+      "category": "pixel_blocks",
+      "path": "/assets/cubeworld/Pixel Blocks/glTF/Block_Square.gltf"
+    },
+    {
+      "id": "pixel_bricks_dark",
+      "name": "Bricks",
+      "category": "pixel_blocks",
+      "variant": "dark",
+      "path": "/assets/cubeworld/Pixel Blocks/glTF/Bricks_Dark.gltf"
+    },
+    {
+      "id": "pixel_bricks_grey",
+      "name": "Bricks",
+      "category": "pixel_blocks",
+      "variant": "grey",
+      "path": "/assets/cubeworld/Pixel Blocks/glTF/Bricks_Grey.gltf"
+    },
+    {
+      "id": "pixel_bricks_red",
+      "name": "Bricks",
+      "category": "pixel_blocks",
+      "variant": "red",
+      "path": "/assets/cubeworld/Pixel Blocks/glTF/Bricks_Red.gltf"
+    },
+    {
+      "id": "pixel_bricks_yellow",
+      "name": "Bricks",
+      "category": "pixel_blocks",
+      "variant": "yellow",
+      "path": "/assets/cubeworld/Pixel Blocks/glTF/Bricks_Yellow.gltf"
+    },
+    {
+      "id": "pixel_coal",
+      "name": "Coal",
+      "category": "pixel_blocks",
+      "path": "/assets/cubeworld/Pixel Blocks/glTF/Coal.gltf"
+    },
+    {
+      "id": "pixel_diamond",
+      "name": "Diamond",
+      "category": "pixel_blocks",
+      "path": "/assets/cubeworld/Pixel Blocks/glTF/Diamond.gltf"
+    },
+    {
+      "id": "pixel_dirt",
+      "name": "Dirt",
+      "category": "pixel_blocks",
+      "path": "/assets/cubeworld/Pixel Blocks/glTF/Dirt.gltf"
+    },
+    {
+      "id": "pixel_exclamation",
+      "name": "Exclamation",
+      "category": "pixel_blocks",
+      "path": "/assets/cubeworld/Pixel Blocks/glTF/Exclamation.gltf"
+    },
+    {
+      "id": "pixel_grass",
+      "name": "Grass",
+      "category": "pixel_blocks",
+      "path": "/assets/cubeworld/Pixel Blocks/glTF/Grass.gltf"
+    },
+    {
+      "id": "pixel_ice",
+      "name": "Ice",
+      "category": "pixel_blocks",
+      "path": "/assets/cubeworld/Pixel Blocks/glTF/Ice.gltf"
+    },
+    {
+      "id": "pixel_leaves",
+      "name": "Leaves",
+      "category": "pixel_blocks",
+      "path": "/assets/cubeworld/Pixel Blocks/glTF/Leaves.gltf"
+    },
+    {
+      "id": "pixel_questionmark",
+      "name": "QuestionMark",
+      "category": "pixel_blocks",
+      "path": "/assets/cubeworld/Pixel Blocks/glTF/QuestionMark.gltf"
+    },
+    {
+      "id": "pixel_snow",
+      "name": "Snow",
+      "category": "pixel_blocks",
+      "path": "/assets/cubeworld/Pixel Blocks/glTF/Snow.gltf"
+    },
+    {
+      "id": "pixel_stone",
+      "name": "Stone",
+      "category": "pixel_blocks",
+      "path": "/assets/cubeworld/Pixel Blocks/glTF/Stone.gltf"
+    },
+    {
+      "id": "pixel_wood",
+      "name": "Wood",
+      "category": "pixel_blocks",
+      "path": "/assets/cubeworld/Pixel Blocks/glTF/Wood.gltf"
+    },
+    {
+      "id": "pixel_woodplanks",
+      "name": "WoodPlanks",
+      "category": "pixel_blocks",
+      "path": "/assets/cubeworld/Pixel Blocks/glTF/WoodPlanks.gltf"
+    },
+    {
+      "id": "tool_axe_diamond",
+      "name": "Axe",
+      "category": "tools",
+      "material": "diamond",
+      "path": "/assets/cubeworld/Tools/glTF/Axe_Diamond.gltf"
+    },
+    {
+      "id": "tool_axe_gold",
+      "name": "Axe",
+      "category": "tools",
+      "material": "gold",
+      "path": "/assets/cubeworld/Tools/glTF/Axe_Gold.gltf"
+    },
+    {
+      "id": "tool_axe_stone",
+      "name": "Axe",
+      "category": "tools",
+      "material": "stone",
+      "path": "/assets/cubeworld/Tools/glTF/Axe_Stone.gltf"
+    },
+    {
+      "id": "tool_axe_wood",
+      "name": "Axe",
+      "category": "tools",
+      "material": "wood",
+      "path": "/assets/cubeworld/Tools/glTF/Axe_Wood.gltf"
+    },
+    {
+      "id": "tool_pickaxe_diamond",
+      "name": "Pickaxe",
+      "category": "tools",
+      "material": "diamond",
+      "path": "/assets/cubeworld/Tools/glTF/Pickaxe_Diamond.gltf"
+    },
+    {
+      "id": "tool_pickaxe_gold",
+      "name": "Pickaxe",
+      "category": "tools",
+      "material": "gold",
+      "path": "/assets/cubeworld/Tools/glTF/Pickaxe_Gold.gltf"
+    },
+    {
+      "id": "tool_pickaxe_stone",
+      "name": "Pickaxe",
+      "category": "tools",
+      "material": "stone",
+      "path": "/assets/cubeworld/Tools/glTF/Pickaxe_Stone.gltf"
+    },
+    {
+      "id": "tool_pickaxe_wood",
+      "name": "Pickaxe",
+      "category": "tools",
+      "material": "wood",
+      "path": "/assets/cubeworld/Tools/glTF/Pickaxe_Wood.gltf"
+    },
+    {
+      "id": "tool_shovel_diamond",
+      "name": "Shovel",
+      "category": "tools",
+      "material": "diamond",
+      "path": "/assets/cubeworld/Tools/glTF/Shovel_Diamond.gltf"
+    },
+    {
+      "id": "tool_shovel_gold",
+      "name": "Shovel",
+      "category": "tools",
+      "material": "gold",
+      "path": "/assets/cubeworld/Tools/glTF/Shovel_Gold.gltf"
+    },
+    {
+      "id": "tool_shovel_stone",
+      "name": "Shovel",
+      "category": "tools",
+      "material": "stone",
+      "path": "/assets/cubeworld/Tools/glTF/Shovel_Stone.gltf"
+    },
+    {
+      "id": "tool_shovel_wood",
+      "name": "Shovel",
+      "category": "tools",
+      "material": "wood",
+      "path": "/assets/cubeworld/Tools/glTF/Shovel_Wood.gltf"
+    },
+    {
+      "id": "tool_sword_diamond",
+      "name": "Sword",
+      "category": "tools",
+      "material": "diamond",
+      "path": "/assets/cubeworld/Tools/glTF/Sword_Diamond.gltf"
+    },
+    {
+      "id": "tool_sword_gold",
+      "name": "Sword",
+      "category": "tools",
+      "material": "gold",
+      "path": "/assets/cubeworld/Tools/glTF/Sword_Gold.gltf"
+    },
+    {
+      "id": "tool_sword_stone",
+      "name": "Sword",
+      "category": "tools",
+      "material": "stone",
+      "path": "/assets/cubeworld/Tools/glTF/Sword_Stone.gltf"
+    },
+    {
+      "id": "tool_sword_wood",
+      "name": "Sword",
+      "category": "tools",
+      "material": "wood",
+      "path": "/assets/cubeworld/Tools/glTF/Sword_Wood.gltf"
+    }
+  ]
+}
